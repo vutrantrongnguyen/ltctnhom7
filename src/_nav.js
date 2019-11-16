@@ -7,12 +7,12 @@ export default {
     },
     {
       name: 'Quản lý đơn hàng',
-      url: '/theme/typography',
+      url: '/orders',
       icon: 'icon-pencil',
     },
     {
       name: 'Quản lý sản phẩm',
-      url: '/users',
+      url: '/products',
       icon: 'icon-puzzle',
     },
     {

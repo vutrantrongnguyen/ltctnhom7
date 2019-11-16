@@ -43,15 +43,15 @@ class Products extends Component {
   }
 
   getProducts() {
-    let token = localStorage.getItem('token');
-    let url = config.api_url + "/products";
+    // let token = localStorage.getItem('token');
+    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/products/";
     fetch(url, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
-      },
-      credentials: "same-origin"
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
       this.setState({data: responseJson.data, isLoaded: true});
     }, function (error) {

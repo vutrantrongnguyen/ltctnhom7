@@ -48,8 +48,6 @@ const Investors = React.lazy(() => import('./views/Giga/Investors/Investors'));
 // const CustomerCondoManagement = React.lazy(() => import('./views/Giga/CustomerCondoManagement/CustomerCondoManagement'));
 // const ProjectManagement = React.lazy(() => import('./views/Giga/ProjectManagement/ProjectManagement'));
 // const Properties = React.lazy(() => import('./views/Giga/Properties/Properties'));
-// const Complains = React.lazy(() => import('./views/Giga/Complains/Complains'));
-const UserAccounts = React.lazy(() => import('./views/Giga/UserAccounts/UserAccounts'));
 // const AdminAgencyAccounts = React.lazy(() => import('./views/Giga/AdminAgencyAccounts/AdminAgencyAccounts'));
 // const BrockerAccounts = React.lazy(() => import('./views/Giga/BrockerAccounts/BrockerAccounts'));
 // const AdminInvestorAccounts = React.lazy(() => import('./views/Giga/AdminInvestorAccounts/AdminInvestorAccounts'));
@@ -62,8 +60,6 @@ const UserAccounts = React.lazy(() => import('./views/Giga/UserAccounts/UserAcco
 // const TransactionDetail = React.lazy(() => import('./views/Giga/TransactionDetail/TransactionDetail'));
 // const PropertyDetail = React.lazy(() => import('./views/Giga/PropertyDetail/PropertyDetail'));
 // const AdminViewInvestors = React.lazy(() => import('./views/Giga/Investors/AdminViewInvestors'));
-// const AdminViewAgencies = React.lazy(() => import('./views/Giga/Agencies/AdminViewAgencies'));
-const AccountDetail = React.lazy(() => import('./views/Giga/AccountDetail/AccountDetail'));
 // const InvestorReports = React.lazy(() => import('./views/Giga/Reports/InvestorReports'));
 // const AgencyReports = React.lazy(() => import('./views/Giga/Reports/AgencyReports'));
 // const ComplainDetail = React.lazy(() => import('./views/Giga/ComplainDetail/ComplainDetail'));
@@ -75,11 +71,26 @@ const AccountDetail = React.lazy(() => import('./views/Giga/AccountDetail/Accoun
 // const CondoDistributionAgency = React.lazy(() => import('./views/Giga/CondoDistribution/CondoDistributionAgency'));
 // const EditInvestorCompany = React.lazy(() => import('./views/Giga/Investors/EditInvestorCompany'));
 // const EditAgencyCompany = React.lazy(() => import('./views/Giga/Agencies/EditAgencyCompany'));
+// const AdminViewAgencies = React.lazy(() => import('./views/Giga/Agencies/AdminViewAgencies'));
+// const Complains = React.lazy(() => import('./views/Giga/Complains/Complains'));
+const UserAccounts = React.lazy(() => import('./views/Giga/UserAccounts/UserAccounts'));
+const Products = React.lazy(() => import('./views/Giga/Products/Products'));
+const Orders = React.lazy(() => import('./views/Giga/Orders/Orders'));
+const AccountDetail = React.lazy(() => import('./views/Giga/AccountDetail/AccountDetail'));
+const ProductDetail = React.lazy(() => import('./views/Giga/ProductDetail/ProductDetail'));
+const OrderDetail = React.lazy(() => import('./views/Giga/OrderDetail/OrderDetail'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/investors', exact: true, name: 'Quản lý danh sách chủ đầu tư', component: Investors},
+  { path: '/account/users', exact: true, name: 'Tài khoản người dùng', component: UserAccounts},
+  { path: '/products', exact: true, name: 'Quản lý sản phẩm', component: Products},
+  { path: '/orders', exact: true, name: 'Quản lý đơn hàng', component: Orders},
+  { path: '/account/detail/:id', exact: true, name: 'Chi tiết tài khoản', component: AccountDetail},
+  { path: '/product/:id', exact: true, name: 'Chi tiết sản phẩm', component: ProductDetail},
+  { path: '/order/:id', exact: true, name: 'Chi tiết đơn hàng', component: OrderDetail},
+
   // { path: '/editinvestor', exact: true, name: 'Thông tin chủ đầu tư', component: EditInvestorCompany},
   // { path: '/editagency', exact: true, name: 'Thông tin công ty môi giới', component: EditAgencyCompany},
   // { path: '/agency/condo/distribution', exact: true, name: 'Quản lý giá và phân phối căn hộ', component: CondoDistributionAgency},
@@ -91,7 +102,6 @@ const routes = [
   // { path: '/complain/detail/:id', exact: true, name: 'Chi tiết nội dung báo xấu', component: ComplainDetail},
   // { path: '/investor/reports', exact: true, name: 'Thống kê báo cáo', component: InvestorReports},
   // { path: '/agency/reports', exact: true, name: 'Thống kê báo cáo', component: AgencyReports},
-  { path: '/account/detail/:id', exact: true, name: 'Chi tiết tài khoản', component: AccountDetail},
   // { path: '/admin/investors', exact: true, name: 'Danh sách chủ đầu tư', component: AdminViewInvestors},
   // { path: '/admin/agencies', exact: true, name: 'Quản lý danh sách công ty môi giới', component: AdminViewAgencies},
   // { path: '/investor/edit/:id', exact: true, name: 'Cập nhật thông tin chủ đầu tư', component: EditInvestor},
@@ -105,7 +115,6 @@ const routes = [
   // { path: '/account/admins', exact: true, name: 'Tài khoản admin của trang web', component: AdminAccounts},
   // { path: '/account/investoradmins', exact: true, name: 'Tài khoản admin của chủ đầu tư', component: AdminInvestorAccounts},
   // { path: '/account/agencyadmins', exact: true, name: 'Tài khoản admin công ty môi giới', component: AdminAgencyAccounts},
-  { path: '/account/users', exact: true, name: 'Tài khoản người dùng', component: UserAccounts},
   // { path: '/properties', exact: true, name: 'Quản lý tin đăng mới', component: Properties},
   // { path: '/complains', exact: true, name: 'Quản lý tin xung đột', component: Complains},
   // { path: '/project/manage', exact: true, name: 'Quản lý bán hàng theo dự án', component: ProjectManagement},
