@@ -34,14 +34,91 @@ const Modals = React.lazy(() => import('./views/Notifications/Modals'));
 const Colors = React.lazy(() => import('./views/Theme/Colors'));
 const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
+
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
 const Investors = React.lazy(() => import('./views/Giga/Investors/Investors'));
+// const Agencies = React.lazy(() => import('./views/Giga/Agencies/Agencies'));
+// const Facilities = React.lazy(() => import('./views/Giga/Facilities/Facilities'));
+// const GeneralList = React.lazy(() => import('./views/Giga/GeneralList/GeneralList'));
+// const ProjectDetail = React.lazy(() => import('./views/Giga/ProjectDetail/ProjectDetail'));
+// const CondoDistribution = React.lazy(() => import('./views/Giga/CondoDistribution/CondoDistribution'));
+// const CondoStatus = React.lazy(() => import('./views/Giga/CondoStatus/CondoStatus'));
+// const CondoUpdate = React.lazy(() => import('./views/Giga/CondoUpdate/CondoUpdate'));
+// const CustomerCondoManagement = React.lazy(() => import('./views/Giga/CustomerCondoManagement/CustomerCondoManagement'));
+// const ProjectManagement = React.lazy(() => import('./views/Giga/ProjectManagement/ProjectManagement'));
+// const Properties = React.lazy(() => import('./views/Giga/Properties/Properties'));
+// const Complains = React.lazy(() => import('./views/Giga/Complains/Complains'));
+const UserAccounts = React.lazy(() => import('./views/Giga/UserAccounts/UserAccounts'));
+// const AdminAgencyAccounts = React.lazy(() => import('./views/Giga/AdminAgencyAccounts/AdminAgencyAccounts'));
+// const BrockerAccounts = React.lazy(() => import('./views/Giga/BrockerAccounts/BrockerAccounts'));
+// const AdminInvestorAccounts = React.lazy(() => import('./views/Giga/AdminInvestorAccounts/AdminInvestorAccounts'));
+// const AdminAccounts = React.lazy(() => import('./views/Giga/AdminAccounts/AdminAccounts'));
+// const Reports = React.lazy(() => import('./views/Giga/Reports/Reports'));
+// const AddInvestor = React.lazy(() => import('./views/Giga/Investors/AddInvestor/AddInvestor'));
+// const EditInvestor = React.lazy(() => import('./views/Giga/Investors/EditInvestor'));
+// const EditAgency = React.lazy(() => import('./views/Giga/Agencies/EditAgency'));
+// const AddAgency = React.lazy(() => import('./views/Giga/Agencies/AddAgency/AddAgency'));
+// const TransactionDetail = React.lazy(() => import('./views/Giga/TransactionDetail/TransactionDetail'));
+// const PropertyDetail = React.lazy(() => import('./views/Giga/PropertyDetail/PropertyDetail'));
+// const AdminViewInvestors = React.lazy(() => import('./views/Giga/Investors/AdminViewInvestors'));
+// const AdminViewAgencies = React.lazy(() => import('./views/Giga/Agencies/AdminViewAgencies'));
+const AccountDetail = React.lazy(() => import('./views/Giga/AccountDetail/AccountDetail'));
+// const InvestorReports = React.lazy(() => import('./views/Giga/Reports/InvestorReports'));
+// const AgencyReports = React.lazy(() => import('./views/Giga/Reports/AgencyReports'));
+// const ComplainDetail = React.lazy(() => import('./views/Giga/ComplainDetail/ComplainDetail'));
+// const MyEditor = React.lazy(() => import('./views/Giga/Editor/MyEditor'));
+// const CreateProject = React.lazy(() => import('./views/Giga/ProjectDetail/CreateProject'));
+// const EditProject = React.lazy(() => import('./views/Giga/ProjectDetail/EditProject'));
+// const GeneralListAdmin2 = React.lazy(() => import('./views/Giga/GeneralList/GeneralListAdmin2'));
+// const GeneralListAdmin3 = React.lazy(() => import('./views/Giga/GeneralList/GeneralListAdmin3'));
+// const CondoDistributionAgency = React.lazy(() => import('./views/Giga/CondoDistribution/CondoDistributionAgency'));
+// const EditInvestorCompany = React.lazy(() => import('./views/Giga/Investors/EditInvestorCompany'));
+// const EditAgencyCompany = React.lazy(() => import('./views/Giga/Agencies/EditAgencyCompany'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/investors', exact: true, name: 'Quản lý danh sách chủ đầu tư', component: Investors},
+  // { path: '/editinvestor', exact: true, name: 'Thông tin chủ đầu tư', component: EditInvestorCompany},
+  // { path: '/editagency', exact: true, name: 'Thông tin công ty môi giới', component: EditAgencyCompany},
+  // { path: '/agency/condo/distribution', exact: true, name: 'Quản lý giá và phân phối căn hộ', component: CondoDistributionAgency},
+  // { path: '/investor/generallist', exact: true, name: 'Bảng danh sách tổng quát', component: GeneralListAdmin2},
+  // { path: '/agency/generallist', exact: true, name: 'Bảng danh sách tổng quát', component: GeneralListAdmin3},
+  // { path: '/project/create', exact: true, name: 'Tạo mới dự án', component: CreateProject},
+  // { path: '/project/edit/:id', exact: true, name: 'Chỉnh sửa dự án', component: EditProject},
+  // { path: '/editor', exact: true, name: 'wysiwyg', component: MyEditor},
+  // { path: '/complain/detail/:id', exact: true, name: 'Chi tiết nội dung báo xấu', component: ComplainDetail},
+  // { path: '/investor/reports', exact: true, name: 'Thống kê báo cáo', component: InvestorReports},
+  // { path: '/agency/reports', exact: true, name: 'Thống kê báo cáo', component: AgencyReports},
+  { path: '/account/detail/:id', exact: true, name: 'Chi tiết tài khoản', component: AccountDetail},
+  // { path: '/admin/investors', exact: true, name: 'Danh sách chủ đầu tư', component: AdminViewInvestors},
+  // { path: '/admin/agencies', exact: true, name: 'Quản lý danh sách công ty môi giới', component: AdminViewAgencies},
+  // { path: '/investor/edit/:id', exact: true, name: 'Cập nhật thông tin chủ đầu tư', component: EditInvestor},
+  // { path: '/agency/edit/:id', exact: true, name: 'Cập nhật thông tin công ty môi giới', component: EditAgency},
+  // { path: '/property/detail/:id', exact: true, name: 'Chi tiết tin đăng', component: PropertyDetail},
+  // { path: '/transaction/detail/:id', exact: true, name: 'Chi tiết giao dịch', component: TransactionDetail},
+  // { path: '/agency/add', exact: true, name: 'Thêm công ty môi giới', component: AddAgency},
+  // { path: '/investor/add', exact: true, name: 'Thêm chủ đầu tư', component: AddInvestor},
+  // { path: '/reports', exact: true, name: 'Thống kê báo cáo', component: Reports},
+  // { path: '/account/brockers', exact: true, name: 'Tài khoản nhân viên môi giới', component: BrockerAccounts},
+  // { path: '/account/admins', exact: true, name: 'Tài khoản admin của trang web', component: AdminAccounts},
+  // { path: '/account/investoradmins', exact: true, name: 'Tài khoản admin của chủ đầu tư', component: AdminInvestorAccounts},
+  // { path: '/account/agencyadmins', exact: true, name: 'Tài khoản admin công ty môi giới', component: AdminAgencyAccounts},
+  { path: '/account/users', exact: true, name: 'Tài khoản người dùng', component: UserAccounts},
+  // { path: '/properties', exact: true, name: 'Quản lý tin đăng mới', component: Properties},
+  // { path: '/complains', exact: true, name: 'Quản lý tin xung đột', component: Complains},
+  // { path: '/project/manage', exact: true, name: 'Quản lý bán hàng theo dự án', component: ProjectManagement},
+  // { path: '/condo/update', exact: true, name: '  ', component: CondoUpdate},
+  // { path: '/condo/status', exact: true, name: 'Quản lý trạng thái căn hộ', component: CondoStatus},
+  // { path: '/condo/distribution', exact: true, name: 'Quản lý giá và phân phối căn hộ', component: CondoDistribution},
+  // { path: '/generallist', exact: true, name: 'Bảng danh sách tổng quát', component: GeneralList},
+  // { path: '/agencies', exact: true, name: 'Quản lý danh sách công ty môi giới', component: Agencies},
+  // { path: '/facilities', exact: true, name: 'Danh sách tiện ích khu đô thị', component: Facilities},
+  // { path: '/project/detail', exact: true, name: 'Danh sách chi tiết dự án,các dữ liệu nhập', component: ProjectDetail},
+  // { path: '/customercondo/manage', exact: true, name: 'Quản lý bán theo khách hàng', component: CustomerCondoManagement},
+
+
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
@@ -82,7 +159,7 @@ const routes = [
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
- 
+
 ];
 
 export default routes;

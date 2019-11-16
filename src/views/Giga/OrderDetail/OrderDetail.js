@@ -172,27 +172,27 @@ class AccountDetail extends Component {
                       </div>
                     </Col>
                     <Row>
-                    <Col sm="12" xl="12">
-                      <div>
-                        <h3>{data.name}</h3>
-                      </div>
-                    </Col>
-                    <Col sm="12" xl="4">
-                      <div>
-                        <p>Số CMTND: </p>
-                      </div>
-                    </Col>
-                    <Col sm="12" xl="4">
-                      <div>
-                        <p>Số điện thoại : {data.mobile_phone}</p>
-                      </div>
-                    </Col>
-                    <Col sm="12" xl="4">
-                      <div>
-                        <p>Email : {data.email}</p>
-                      </div>
-                    </Col>
-                  </Row>
+                      <Col sm="12" xl="12">
+                        <div>
+                          <h3>{data.name}</h3>
+                        </div>
+                      </Col>
+                      <Col sm="12" xl="4">
+                        <div>
+                          <p>Số CMTND: </p>
+                        </div>
+                      </Col>
+                      <Col sm="12" xl="4">
+                        <div>
+                          <p>Số điện thoại : {data.mobile_phone}</p>
+                        </div>
+                      </Col>
+                      <Col sm="12" xl="4">
+                        <div>
+                          <p>Email : {data.email}</p>
+                        </div>
+                      </Col>
+                    </Row>
                   </Row>
                 </div>
               </CardHeader>
@@ -217,16 +217,16 @@ class AccountDetail extends Component {
               </CardBody>
               <CardFooter>
                 <div className="align-items-center">
-                <FormGroup check inline className="align-self-center">
-                  <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"
-                         value="option1"/>
-                  <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>
-                </FormGroup>
-                <FormGroup check inline className="align-content-center">
-                  <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"
-                         value="option2"/>
-                  <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>
-                </FormGroup>
+                  <FormGroup check inline className="align-self-center">
+                    <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"
+                           value="option1"/>
+                    <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>
+                  </FormGroup>
+                  <FormGroup check inline className="align-content-center">
+                    <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"
+                           value="option2"/>
+                    <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>
+                  </FormGroup>
                 </div>
                 {/*<Button className="btn btn-info mr-1"*/}
                 {/*        onClick={() => this.showEditingForm()}>Sửa</Button>*/}

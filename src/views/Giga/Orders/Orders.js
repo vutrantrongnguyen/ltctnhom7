@@ -19,7 +19,7 @@ import config from "../../Config/strings";
 import SweetAlert from 'react-bootstrap-sweetalert';
 import styles from "../../Config/styles";
 
-class UserAccounts extends Component {
+class Orders extends Component {
 
   constructor(props) {
     super(props);
@@ -39,12 +39,12 @@ class UserAccounts extends Component {
   }
 
   componentDidMount() {
-    this.getUserByPage();
+    this.getOrders();
   }
 
-  getUserByPage() {
+  getOrders() {
     let token = localStorage.getItem('token');
-    let url = config.api_url + "/db/users/get-list";
+    let url = config.api_url + "/order";
     fetch(url, {
       method: "GET",
       headers: {
@@ -58,9 +58,9 @@ class UserAccounts extends Component {
     })
   }
 
-  deleteUser(id, index) {
+  deleteOrder(id, index) {
     let token = localStorage.getItem('token');
-    let url = config.api_url + "/db/users/delete?id=";
+    let url = config.api_url + "/order/";
     fetch(url + id, {
       method: 'DELETE',
       headers: {
@@ -122,7 +122,7 @@ class UserAccounts extends Component {
       ((user.email && user.email.toLowerCase().indexOf(fields.email.toLowerCase())) !== -1);
   }
 
-  renderAlert(investorId, index) {
+  renderAlert(Id, index) {
     const getAlert = () => (
       <SweetAlert
         custom
@@ -133,7 +133,7 @@ class UserAccounts extends Component {
         cancelBtnBsStyle="default"
         // customIcon="thumbs-up.jpg"
         title="Bạn chắc chắn muốn xóa?"
-        onConfirm={() => this.deleteUser(investorId, index)}
+        onConfirm={() => this.deleteOrder(Id, index)}
         onCancel={() => this.hideAlert()}
       >
         Bạn không thể khôi phục được thông tin đã xóa!
@@ -152,37 +152,36 @@ class UserAccounts extends Component {
 
   }
 
-  renderAccount() {
+  renderOrder() {
     if (!this.state.isLoaded) {
-      console.log(this.state.isLoaded);
       return <Spinner/>
     } else {
-    let filtering = (this.state.filterField.name || this.state.filterField.mobile_phone || this.state.filterField.email);
-    let data;
-    if (!filtering) {
-      data = this.state.data;
-    } else {
-
-      data = this.state.data.filter(x => this.filteredUser(x));
-
-    }
-    let content = data.map((data, index) =>
-      <tr key={data.id}>
-        <td>{index + 1}</td>
-        <td>{data.name}</td>
-        <td>{data.phone}</td>
-        <td>{data.email}</td>
-        <td>{data.username}</td>
-        <td>
-          <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/account/detail/' + data.id)}><i
-            className="fa fa-eye "/></Button>
-          {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
-          <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.id, index)}><i
-            className="cui-trash icons font-lg "/></Button>
-        </td>
-      </tr>);
-    return content;
-  }}
+      // let filtering = (this.state.filterField.name || this.state.filterField.mobile_phone || this.state.filterField.email);
+      // let data;
+      // if (!filtering) {
+      //   data = this.state.data;
+      // } else {
+      //
+      //   data = this.state.data.filter(x => this.filteredUser(x));
+      //
+      // }
+      let data = this.state.data;
+      let content = data.map((data, index) =>
+        <tr key={data.id}>
+          <td>{index + 1}</td>
+          <td>{data.order_code}</td>
+          <td>{data.user_id}</td>
+          <td>{data.total_price}</td>
+          <td>
+            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/order/' + data.id)}><i
+              className="fa fa-eye "/></Button>
+            {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
+            <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.id, index)}><i
+              className="cui-trash icons font-lg "/></Button>
+          </td>
+        </tr>);
+      return content;
+    }}
 
   render() {
     if (!this.state.isLoaded) {
@@ -194,7 +193,7 @@ class UserAccounts extends Component {
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6">
-              <p className="font-weight-bold">TÀI KHOẢN NGƯỜI DÙNG</p>
+              <p className="font-weight-bold">QUẢN LÝ ĐƠN HÀNG</p>
             </Col>
           </Row>
           <Row>
@@ -210,21 +209,27 @@ class UserAccounts extends Component {
                             <thead>
                             <tr>
                               <th style={styles.topVertical}>ID</th>
-                              <th>Họ tên<Input bsSize="sm" type="text" id="name" name="name"
-                                               className="input-sm" placeholder="Tìm kiếm"
-                                               onChange={(event) => this.handleChange(event)}/></th>
-                              <th>Số ĐT<Input bsSize="sm" type="text" id="phone" name="phone"
-                                              className="input-sm" placeholder="Tìm kiếm"
-                                              onChange={(event) => this.handleChange(event)}/></th>
-                              <th>Email<Input bsSize="sm" type="text" id="email" name="email"
-                                              className="input-sm" placeholder="Tìm kiếm"
-                                              onChange={(event) => this.handleChange(event)}/></th>
-                              <th style={styles.topVertical}>Username</th>
-                              <th style={styles.topVertical}>Nút lệnh</th>
+                              <th>Order code
+                                {/*<Input bsSize="sm" type="text" id="name" name="name"*/}
+                                {/*               className="input-sm" placeholder="Tìm kiếm"*/}
+                                {/*               onChange={(event) => this.handleChange(event)}/>*/}
+                              </th>
+                              <th>User ID
+                                {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
+                                {/*              className="input-sm" placeholder="Tìm kiếm"*/}
+                                {/*              onChange={(event) => this.handleChange(event)}/>*/}
+                              </th>
+                              <th>Price
+                                {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
+                                {/*              className="input-sm" placeholder="Tìm kiếm"*/}
+                                {/*              onChange={(event) => this.handleChange(event)}/>*/}
+                              </th>
+                              {/*<th style={styles.topVertical}>Username</th>*/}
+                              <th style={styles.topVertical}>Button</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {this.renderAccount()}
+                            {this.renderOrder()}
                             </tbody>
                           </Table>
 
@@ -247,4 +252,4 @@ class UserAccounts extends Component {
   }
 }
 
-export default UserAccounts;
+export default Orders;
