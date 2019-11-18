@@ -44,6 +44,7 @@ class AccountDetail extends Component {
       isLoaded: false,
       isEditing: false,
     };
+
   }
 
   componentDidMount() {
