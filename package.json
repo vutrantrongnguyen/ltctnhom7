@@ -12,6 +12,7 @@
     "url": "git@github.com:coreui/coreui-free-react-admin-template.git"
   },
   "dependencies": {
+    "react-scripts": "^2.1.8",
     "@coreui/coreui": "^2.1.9",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
     "@coreui/icons": "0.3.0",
@@ -39,9 +40,7 @@
     "redux": "^4.0.1",
     "simple-line-icons": "^2.4.1"
   },
-  "devDependencies": {
-    "react-scripts": "^2.1.8"
-  },
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
