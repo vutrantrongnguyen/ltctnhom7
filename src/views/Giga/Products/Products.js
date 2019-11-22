@@ -166,14 +166,15 @@ class Products extends Component {
       //
       // }
       let data = this.state.data;
+      console.log(this.state.data);
       let content = data.map((data, index) =>
         <tr key={data.id}>
           <td>{index + 1}</td>
           <td>{data.brand}</td>
           <td>{data.price}</td>
           <td>{data.description}</td>
-          <td>{data.image}</td>
-          <td>{data.categories}</td>
+          <td><img src={data.image} alt="" height="50"/></td>
+          <td>{data.category}</td>
           <td>
             <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/products/' + data.id)}><i
               className="fa fa-eye "/></Button>

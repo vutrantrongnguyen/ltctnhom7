@@ -40,20 +40,23 @@ class UserAccounts extends Component {
 
   componentDidMount() {
     this.getUserByPage();
+    console.log("aaaaaa");
   }
 
   getUserByPage() {
-    let token = localStorage.getItem('token');
-    let url = config.api_url + "/db/users/get-list";
+    // let token = localStorage.getItem('token');
+    console.log("đinit");
+    let url = "https://secure-mountain-93147.herokuapp.com/api/users";
     fetch(url, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
-      },
-      credentials: "same-origin"
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
-      this.setState({data: responseJson.data, isLoaded: true});
+      this.setState({data: responseJson, isLoaded: true});
+      console.log("aaaaaa",responseJson);
     }, function (error) {
     })
   }
@@ -164,7 +167,7 @@ class UserAccounts extends Component {
     } else {
 
       data = this.state.data.filter(x => this.filteredUser(x));
-
+console.log(data);
     }
     let content = data.map((data, index) =>
       <tr key={data.id}>
@@ -188,8 +191,7 @@ class UserAccounts extends Component {
     if (!this.state.isLoaded) {
       return <Spinner/>
     } else {
-
-
+      console.log(this.state.data);
       return (
         <div className="animated fadeIn">
           <Row>
