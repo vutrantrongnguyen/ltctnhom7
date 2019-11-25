@@ -171,6 +171,7 @@ class Products extends Component {
       //
       // }
       let data = this.state.data;
+      console.log(this.state.data);
       let content = data.map((data, index) =>
         <tr key={data.id}>
           <td>{index + 1}</td>
