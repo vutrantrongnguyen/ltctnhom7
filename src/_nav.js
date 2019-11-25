@@ -6,8 +6,8 @@ export default {
       icon: 'icon-people',
     },
     {
-      name: 'Quản lý đơn hàng',
-      url: '/orders',
+      name: 'Quản lý giao hàng',
+      url: '/deliveries',
       icon: 'icon-pencil',
     },
     {

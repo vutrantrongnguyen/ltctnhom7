@@ -24,7 +24,7 @@ import {
 import Spinner from "reactstrap/es/Spinner";
 import config from "../../Config/strings";
 
-class AccountDetail extends Component {
+class DeliveryDetail extends Component {
 
   constructor(props) {
     super(props);
@@ -87,18 +87,18 @@ class AccountDetail extends Component {
   }
 
   getAccountDetailById(accountId) {
-    let token = localStorage.getItem('token');
-    let url = config.api_url + "/users/";
+    // let token = localStorage.getItem('token');
+    let url = "https://online-selling-website.herokuapp.com/delivery/";
     fetch(url + accountId, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
-      },
-      credentials: "same-origin"
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
       console.log(responseJson.data);
-      this.setState({data: responseJson.data, isLoaded: true, origin: JSON.parse(JSON.stringify(responseJson.data))});
+      this.setState({data: responseJson, isLoaded: true, origin: JSON.parse(JSON.stringify(responseJson))});
       // localStorage.setItem('data', JSON.stringify(responseJson.data));
     }, function (error) {
     })
@@ -167,32 +167,32 @@ class AccountDetail extends Component {
               <CardHeader>
                 <div>
                   <Row style={{marginTop:10}}>
-                    <Col sm="12" xl="3">
-                      <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}} className="avatar avatar-online avatar-lg m-5">
-                        <img src={data && data.avatar || "/assets/img/logo-placeholder.png"} style={{height: 120,borderRadius:50 }} />
-                      </div>
-                    </Col>
+                    {/*<Col sm="12" xl="3">*/}
+                    {/*  <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}} className="avatar avatar-online avatar-lg m-5">*/}
+                    {/*    <img src={data && data.avatar || "/assets/img/logo-placeholder.png"} style={{height: 120,borderRadius:50 }} />*/}
+                    {/*  </div>*/}
+                    {/*</Col>*/}
                     <Row>
                       <Col sm="12" xl="12">
                         <div>
-                          <h3>{data.name}</h3>
+                          <h3>{data.order_id}</h3>
                         </div>
                       </Col>
-                      <Col sm="12" xl="4">
-                        <div>
-                          <p>Số CMTND: </p>
-                        </div>
-                      </Col>
-                      <Col sm="12" xl="4">
-                        <div>
-                          <p>Số điện thoại : {data.mobile_phone}</p>
-                        </div>
-                      </Col>
-                      <Col sm="12" xl="4">
-                        <div>
-                          <p>Email : {data.email}</p>
-                        </div>
-                      </Col>
+                      {/*<Col sm="12" xl="4">*/}
+                      {/*  <div>*/}
+                      {/*    <p>Số CMTND: </p>*/}
+                      {/*  </div>*/}
+                      {/*</Col>*/}
+                      {/*<Col sm="12" xl="4">*/}
+                      {/*  <div>*/}
+                      {/*    <p>Số điện thoại : {data.mobile_phone}</p>*/}
+                      {/*  </div>*/}
+                      {/*</Col>*/}
+                      {/*<Col sm="12" xl="4">*/}
+                      {/*  <div>*/}
+                      {/*    <p>Email : {data.email}</p>*/}
+                      {/*  </div>*/}
+                      {/*</Col>*/}
                     </Row>
                   </Row>
                 </div>
@@ -200,34 +200,35 @@ class AccountDetail extends Component {
               <CardBody>
                 <div>
                   <Row>
-                    <Col xs="12" md="4">
-                      <p>Username: </p>
-                      <p>Password: </p>
-                      <p>Chủ quản: </p>
-                      <p>Phân loại: {data.level}</p>
+                    <Col xs="12" md="12">
+                      <p>Delivery unit id: {data.delivery_unit_id} </p>
+                      <p>Receive date: {data.expected_receving_date}</p>
+                      <p>Receiver phone: {data.receiver_phone}</p>
+                      <p>Address: {data.receiving_address}</p>
+                      <p>Cost: {data.total_cost}</p>
                     </Col>
-                    <Col xs="12" md="4">
-                      <p>Số căn hộ sở hữu: </p>
-                      <p>Địa chỉ: {data.address}</p>
-                    </Col>
-                    <Col xs="12" md="4">
-                      <p>Số lần bị report: </p>
-                    </Col>
+                    {/*<Col xs="12" md="4">*/}
+                    {/*  <p>Số căn hộ sở hữu: </p>*/}
+                    {/*  <p>Địa chỉ: {data.address}</p>*/}
+                    {/*</Col>*/}
+                    {/*<Col xs="12" md="4">*/}
+                    {/*  <p>Số lần bị report: </p>*/}
+                    {/*</Col>*/}
                   </Row>
                 </div>
               </CardBody>
               <CardFooter>
                 <div className="align-items-center">
-                  <FormGroup check inline className="align-self-center">
-                    <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"
-                           value="option1"/>
-                    <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>
-                  </FormGroup>
-                  <FormGroup check inline className="align-content-center">
-                    <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"
-                           value="option2"/>
-                    <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>
-                  </FormGroup>
+                  {/*<FormGroup check inline className="align-self-center">*/}
+                  {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"*/}
+                  {/*         value="option1"/>*/}
+                  {/*  <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>*/}
+                  {/*</FormGroup>*/}
+                  {/*<FormGroup check inline className="align-content-center">*/}
+                  {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"*/}
+                  {/*         value="option2"/>*/}
+                  {/*  <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>*/}
+                  {/*</FormGroup>*/}
                 </div>
                 {/*<Button className="btn btn-info mr-1"*/}
                 {/*        onClick={() => this.showEditingForm()}>Sửa</Button>*/}
@@ -283,20 +284,20 @@ class AccountDetail extends Component {
               </div>
             </CardBody>
             <CardFooter>
-              <FormGroup check inline className="align-self-center">
-                <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"
-                       value="option1"/>
-                <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>
-              </FormGroup>
-              <FormGroup check inline className="align-content-center">
-                <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"
-                       value="option2"/>
-                <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>
-              </FormGroup>
-              <Button className="btn btn-info mr-1"
-                      onClick={() => this.updateAccountInfo(data.id)}>Lưu</Button>
-              <Button className="btn btn-default mr-1"
-                      onClick={() => this.closeEditingForm()}>Hủy</Button>
+              {/*<FormGroup check inline className="align-self-center">*/}
+              {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"*/}
+              {/*         value="option1"/>*/}
+              {/*  <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>*/}
+              {/*</FormGroup>*/}
+              {/*<FormGroup check inline className="align-content-center">*/}
+              {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"*/}
+              {/*         value="option2"/>*/}
+              {/*  <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>*/}
+              {/*</FormGroup>*/}
+              {/*<Button className="btn btn-info mr-1"*/}
+              {/*        onClick={() => this.updateAccountInfo(data.id)}>Lưu</Button>*/}
+              {/*<Button className="btn btn-default mr-1"*/}
+              {/*        onClick={() => this.closeEditingForm()}>Hủy</Button>*/}
             </CardFooter>
           </Card>
         </Col>
@@ -314,13 +315,13 @@ class AccountDetail extends Component {
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6">
-              <p className="font-weight-bold">CHI TIẾT TÀI KHOẢN </p>
+              <p className="font-weight-bold">CHI TIẾT GIAO HÀNG </p>
             </Col>
           </Row>
           {this.isEditing()}
           <div className="form-actions">
-            <Button type="submit" color="primary" className="mr-1">Hủy</Button>
-            <Button type="submit" color="info" className="mr-1">Hoàn thành</Button>
+            {/*<Button type="submit" color="primary" className="mr-1">Hủy</Button>*/}
+            {/*<Button type="submit" color="info" className="mr-1">Hoàn thành</Button>*/}
 
           </div>
 
@@ -330,4 +331,4 @@ class AccountDetail extends Component {
   }
 }
 
-export default AccountDetail;
+export default DeliveryDetail;

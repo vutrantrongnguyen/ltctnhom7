@@ -86,18 +86,18 @@ class AccountDetail extends Component {
   }
 
   getAccountDetailById(accountId) {
-    let token = localStorage.getItem('token');
-    let url = config.api_url + "/users/";
+    // let token = localStorage.getItem('token');
+    let url = "https://secure-mountain-93147.herokuapp.com/api/user/";
     fetch(url + accountId, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
-      },
-      credentials: "same-origin"
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
-      console.log(responseJson.data);
-      this.setState({data: responseJson.data, isLoaded: true, origin: JSON.parse(JSON.stringify(responseJson.data))});
+      console.log(responseJson);
+      this.setState({data: responseJson, isLoaded: true, origin: JSON.parse(JSON.stringify(responseJson))});
       // localStorage.setItem('data', JSON.stringify(responseJson.data));
     }, function (error) {
     })
@@ -166,32 +166,32 @@ class AccountDetail extends Component {
               <CardHeader>
                 <div>
                   <Row style={{marginTop:10}}>
-                    <Col sm="12" xl="3">
-                      <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}} className="avatar avatar-online avatar-lg m-5">
-                        <img src={data && data.avatar || "/assets/img/logo-placeholder.png"} style={{height: 120,borderRadius:50 }} />
-                      </div>
-                    </Col>
+                    {/*<Col sm="12" xl="3">*/}
+                    {/*  <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}} className="avatar avatar-online avatar-lg m-5">*/}
+                    {/*    <img src={data && data.avatar || "/assets/img/logo-placeholder.png"} style={{height: 120,borderRadius:50 }} />*/}
+                    {/*  </div>*/}
+                    {/*</Col>*/}
                     <Row>
                     <Col sm="12" xl="12">
                       <div>
                         <h3>{data.name}</h3>
                       </div>
                     </Col>
-                    <Col sm="12" xl="4">
-                      <div>
-                        <p>Số CMTND: </p>
-                      </div>
-                    </Col>
-                    <Col sm="12" xl="4">
-                      <div>
-                        <p>Số điện thoại : {data.mobile_phone}</p>
-                      </div>
-                    </Col>
-                    <Col sm="12" xl="4">
-                      <div>
-                        <p>Email : {data.email}</p>
-                      </div>
-                    </Col>
+                    {/*<Col sm="12" xl="4">*/}
+                    {/*  <div>*/}
+                    {/*    <p>Số CMTND: </p>*/}
+                    {/*  </div>*/}
+                    {/*</Col>*/}
+                    {/*<Col sm="12" xl="4">*/}
+                    {/*  <div>*/}
+                    {/*    <p>Số điện thoại : {data.phone}</p>*/}
+                    {/*  </div>*/}
+                    {/*</Col>*/}
+                    {/*<Col sm="12" xl="4">*/}
+                    {/*  <div>*/}
+                    {/*    <p>Email : {data.email}</p>*/}
+                    {/*  </div>*/}
+                    {/*</Col>*/}
                   </Row>
                   </Row>
                 </div>
@@ -199,34 +199,35 @@ class AccountDetail extends Component {
               <CardBody>
                 <div>
                   <Row>
-                    <Col xs="12" md="4">
-                      <p>Username: </p>
-                      <p>Password: </p>
-                      <p>Chủ quản: </p>
-                      <p>Phân loại: {data.level}</p>
+                    <Col xs="12" md="12">
+                      <p>Email: {data.email} </p>
+                      <p>Username: {data.username} </p>
+                      <p>Phone: {data.phone} </p>
+                      <p>Type: {data.type}</p>
+                      <p>API_token: {data.api_token}</p>
                     </Col>
-                    <Col xs="12" md="4">
-                      <p>Số căn hộ sở hữu: </p>
-                      <p>Địa chỉ: {data.address}</p>
-                    </Col>
-                    <Col xs="12" md="4">
-                      <p>Số lần bị report: </p>
-                    </Col>
+                    {/*<Col xs="12" md="4">*/}
+                    {/*  <p>Số căn hộ sở hữu: </p>*/}
+                    {/*  <p>Địa chỉ: {data.address}</p>*/}
+                    {/*</Col>*/}
+                    {/*<Col xs="12" md="4">*/}
+                    {/*  <p>Số lần bị report: </p>*/}
+                    {/*</Col>*/}
                   </Row>
                 </div>
               </CardBody>
               <CardFooter>
                 <div className="align-items-center">
-                <FormGroup check inline className="align-self-center">
-                  <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"
-                         value="option1"/>
-                  <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>
-                </FormGroup>
-                <FormGroup check inline className="align-content-center">
-                  <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"
-                         value="option2"/>
-                  <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>
-                </FormGroup>
+                {/*<FormGroup check inline className="align-self-center">*/}
+                {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"*/}
+                {/*         value="option1"/>*/}
+                {/*  <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>*/}
+                {/*</FormGroup>*/}
+                {/*<FormGroup check inline className="align-content-center">*/}
+                {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"*/}
+                {/*         value="option2"/>*/}
+                {/*  <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>*/}
+                {/*</FormGroup>*/}
                 </div>
                 {/*<Button className="btn btn-info mr-1"*/}
                 {/*        onClick={() => this.showEditingForm()}>Sửa</Button>*/}
@@ -318,8 +319,8 @@ class AccountDetail extends Component {
           </Row>
           {this.isEditing()}
           <div className="form-actions">
-            <Button type="submit" color="primary" className="mr-1">Hủy</Button>
-            <Button type="submit" color="info" className="mr-1">Hoàn thành</Button>
+            {/*<Button type="submit" color="primary" className="mr-1">Hủy</Button>*/}
+            {/*<Button type="submit" color="info" className="mr-1">Hoàn thành</Button>*/}
 
           </div>
 

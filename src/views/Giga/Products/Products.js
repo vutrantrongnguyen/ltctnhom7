@@ -4,7 +4,8 @@ import {
   Button, Card,
   CardBody,
   // CardHeader,
-  Col, Input,
+  Col,
+  // Input,
   Nav,
   NavItem,
   NavLink,
@@ -17,7 +18,7 @@ import {
 import Spinner from "reactstrap/es/Spinner";
 import config from "../../Config/strings";
 import SweetAlert from 'react-bootstrap-sweetalert';
-import styles from "../../Config/styles";
+// import styles from "../../Config/styles";
 
 class Products extends Component {
 
@@ -48,26 +49,30 @@ class Products extends Component {
     fetch(url, {
       method: "GET",
       // headers: {
-      //   "Content-Type": "application/json",
-      //   "authorization": "Bearer " + token,
+        // "Content-Type": "application/json",
+        // "authorization": "Bearer " + token,
+      //   'Access-Control-Allow-Origin': "*",
+      //   'Access-Control-Allow-Headers': "*",
       // },
       // credentials: "same-origin"
-    }).then(response => response.json()).then((responseJson) => {
+    }
+    ).then(response => response.json()).then((responseJson) => {
+      console.log(responseJson.data,this.state.isLoaded);
       this.setState({data: responseJson.data, isLoaded: true});
     }, function (error) {
     })
   }
 
   deleteProduct(id, index) {
-    let token = localStorage.getItem('token');
+    // let token = localStorage.getItem('token');
     let url = config.api_url + "/products/";
     fetch(url + id, {
       method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
-      },
-      credentials: "same-origin"
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
     }).then((res) => res.json())
       .then((responseJson) => {
         if (responseJson.data) {
@@ -172,10 +177,10 @@ class Products extends Component {
           <td>{data.brand}</td>
           <td>{data.price}</td>
           <td>{data.description}</td>
-          <td>{data.image}</td>
-          <td>{data.categories}</td>
+          <td><img src={data.image} alt="" height="100"/></td>
+          <td>{data.category}</td>
           <td>
-            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/products/' + data.id)}><i
+            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/product/' + data.id)}><i
               className="fa fa-eye "/></Button>
             {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
             <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.id, index)}><i

@@ -43,31 +43,31 @@ class UserAccounts extends Component {
   }
 
   getUserByPage() {
-    let token = localStorage.getItem('token');
-    let url = config.api_url + "/db/users/get-list";
+    // let token = localStorage.getItem('token');
+    let url ="https://secure-mountain-93147.herokuapp.com/api/users";
     fetch(url, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
-      },
-      credentials: "same-origin"
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
-      this.setState({data: responseJson.data, isLoaded: true});
+      this.setState({data: responseJson, isLoaded: true});
     }, function (error) {
     })
   }
 
   deleteUser(id, index) {
-    let token = localStorage.getItem('token');
+    // let token = localStorage.getItem('token');
     let url = config.api_url + "/db/users/delete?id=";
     fetch(url + id, {
       method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
-      },
-      credentials: "same-origin"
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
     }).then((res) => res.json())
       .then((responseJson) => {
         if (responseJson.data) {
