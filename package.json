@@ -40,7 +40,6 @@
     "redux": "^4.0.1",
     "simple-line-icons": "^2.4.1"
   },
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

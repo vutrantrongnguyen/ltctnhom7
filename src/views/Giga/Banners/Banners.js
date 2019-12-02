@@ -20,7 +20,7 @@ import config from "../../Config/strings";
 import SweetAlert from 'react-bootstrap-sweetalert';
 import styles from "../../Config/styles";
 
-class Deliveries extends Component {
+class Banners extends Component {
 
   constructor(props) {
     super(props);
@@ -29,8 +29,8 @@ class Deliveries extends Component {
     this.state = {
       activeTab: new Array(4).fill('1'),
       isLoaded: false,
-      isShipperLoaded: false,
-      isUnitLoaded: false,
+      isCouponLoaded: false,
+      // isUnitLoaded: false,
       data: [],
       alert: null,
       filterField: {
@@ -42,14 +42,13 @@ class Deliveries extends Component {
   }
 
   componentDidMount() {
-    this.getOrders();
-    this.getShippers();
-    this.getDeliveryUnits()
+    this.getBanners();
+    this.getCoupons();
   }
 
-  getOrders() {
+  getBanners() {
     // let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/deliveries";
+    let url = "https://secure-mesa-29267.herokuapp.com/api/banners";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -58,14 +57,15 @@ class Deliveries extends Component {
       // },
       // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
-      this.setState({data: responseJson.deliveries, isLoaded: true});
+      this.setState({banners: responseJson.data, isLoaded: true});
+      console.log(responseJson.data);
     }, function (error) {
     })
   }
 
-  getShippers() {
+  getCoupons() {
     // let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/shippers";
+    let url = "https://secure-mesa-29267.herokuapp.com/api/coupons";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -74,28 +74,15 @@ class Deliveries extends Component {
       // },
       // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
-      this.setState({shippers: responseJson.shippers, isShipperLoaded: true});
+      this.setState({coupons: responseJson.data, isCouponLoaded: true});
+      console.log(responseJson.data);
+
     }, function (error) {
     })
   }
+  
 
-  getDeliveryUnits() {
-    // let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/delivery_units";
-    fetch(url, {
-      method: "GET",
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   "authorization": "Bearer " + token,
-      // },
-      // credentials: "same-origin"
-    }).then(response => response.json()).then((responseJson) => {
-      this.setState({units: responseJson.delivery_units, isUnitLoaded: true});
-    }, function (error) {
-    })
-  }
-
-  deleteOrder(id, index) {
+  deleteBanner(id, index) {
     let token = localStorage.getItem('token');
     let url = config.api_url + "/order/";
     fetch(url + id, {
@@ -147,17 +134,17 @@ class Deliveries extends Component {
     });
   }
 
-  handleChange(event) {
-    this.state.filterField[event.target.name] = event.target.value;
-    this.setState(({filterField: this.state.filterField}));
-  }
-
-  filteredUser(user) {
-    let fields = this.state.filterField;
-    return ((user.name && user.name.toLowerCase().indexOf(fields.name.toLowerCase())) !== -1) &&
-      ((user.mobile_phone && user.mobile_phone.toLowerCase().indexOf(fields.mobile_phone.toLowerCase())) !== -1) &&
-      ((user.email && user.email.toLowerCase().indexOf(fields.email.toLowerCase())) !== -1);
-  }
+  // handleChange(event) {
+  //   this.state.filterField[event.target.name] = event.target.value;
+  //   this.setState(({filterField: this.state.filterField}));
+  // }
+  //
+  // filteredUser(user) {
+  //   let fields = this.state.filterField;
+  //   return ((user.name && user.name.toLowerCase().indexOf(fields.name.toLowerCase())) !== -1) &&
+  //     ((user.mobile_phone && user.mobile_phone.toLowerCase().indexOf(fields.mobile_phone.toLowerCase())) !== -1) &&
+  //     ((user.email && user.email.toLowerCase().indexOf(fields.email.toLowerCase())) !== -1);
+  // }
 
   renderAlert(Id, index) {
     const getAlert = () => (
@@ -170,7 +157,7 @@ class Deliveries extends Component {
         cancelBtnBsStyle="default"
         // customIcon="thumbs-up.jpg"
         title="Bạn chắc chắn muốn xóa?"
-        onConfirm={() => this.deleteOrder(Id, index)}
+        onConfirm={() => this.deleteBanner(Id, index)}
         onCancel={() => this.hideAlert()}
       >
         Bạn không thể khôi phục được thông tin đã xóa!
@@ -189,48 +176,18 @@ class Deliveries extends Component {
 
   }
 
-  renderOrder() {
-    if (!this.state.isLoaded || !this.state.isShipperLoaded || !this.state.isUnitLoaded) {
+  renderBanners() {
+    if (!this.state.isLoaded || !this.state.isCouponLoaded) {
       return <Spinner/>
     } else {
-      // let filtering = (this.state.filterField.name || this.state.filterField.mobile_phone || this.state.filterField.email);
-      // let data;
-      // if (!filtering) {
-      //   data = this.state.data;
-      // } else {
-      //
-      //   data = this.state.data.filter(x => this.filteredUser(x));
-      //
-      // }
-      let data = this.state.data;
+      let data = this.state.banners;
       let content = data.map((data, index) =>
         <tr key={data.id}>
           <td>{index + 1}</td>
-          <td>{data.receiver_phone}</td>
-          <td>{data.receiving_address}</td>
-          <td>{data.total_cost}</td>
-          <td>
-            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i
-              className="fa fa-eye "/></Button>
-            {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
-            <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.order_id, index)}><i
-              className="cui-trash icons font-lg "/></Button>
-          </td>
-        </tr>);
-      return content;
-    }
-  }
-
-  renderShipper() {
-    if (!this.state.isLoaded || !this.state.isShipperLoaded || !this.state.isUnitLoaded) {
-      return <Spinner/>
-    } else {
-      let data = this.state.shippers;
-      let content = data.map((data, index) =>
-        <tr key={data.id}>
-          <td>{index + 1}</td>
-          <td>{data.name}</td>
-          <td>{data.phone}</td>
+          <td>{data.image_name}</td>
+          <td>{data.title}</td>
+          <td>{data.status}</td>
+          <td>{data.link}</td>
           <td>
             {/*<Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i*/}
             {/*  className="fa fa-eye "/></Button>*/}
@@ -243,17 +200,19 @@ class Deliveries extends Component {
     }
   }
 
-  renderUnit() {
-    if (!this.state.isLoaded || !this.state.isShipperLoaded || !this.state.isUnitLoaded) {
+  renderCoupon() {
+    if (!this.state.isLoaded || !this.state.isCouponLoaded) {
       return <Spinner/>
     } else {
-      let data = this.state.units;
+      let data = this.state.coupons;
       let content = data.map((data, index) =>
         <tr key={data.id}>
           <td>{index + 1}</td>
-          <td>{data.name}</td>
-          <td>{data.base_fee}</td>
-          <td>{data.delivery_time}</td>
+          <td>{data.coupon_code}</td>
+          <td>{data.amount}</td>
+          <td>{data.amount_type}</td>
+          <td>{data.expiry_date}</td>
+          <td>{data.status}</td>
           <td>
             {/*<Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i*/}
             {/*  className="fa fa-eye "/></Button>*/}
@@ -265,9 +224,10 @@ class Deliveries extends Component {
       return content;
     }
   }
+
 
   render() {
-    if (!this.state.isLoaded || !this.state.isShipperLoaded || !this.state.isUnitLoaded) {
+    if (!this.state.isLoaded || !this.state.isCouponLoaded) {
       return <Spinner/>
     } else {
 
@@ -276,7 +236,7 @@ class Deliveries extends Component {
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6">
-              <p className="font-weight-bold">QUẢN LÝ GIAO HÀNG</p>
+              <p className="font-weight-bold">QUẢN LÝ QUẢNG CÁO - kHUYẾN MẠI</p>
             </Col>
           </Row>
           <Row>
@@ -288,88 +248,63 @@ class Deliveries extends Component {
                       <Row>
                         <Col xs="12" md="6"> <Card>
                           <CardBody>
+                            <p>Banners</p>
                             <Table responsive>
                               <thead>
                               <tr>
                                 <th style={styles.topVertical}>ID</th>
-                                <th>Phone
+                                <th>Image
                                   {/*<Input bsSize="sm" type="text" id="name" name="name"*/}
                                   {/*               className="input-sm" placeholder="Tìm kiếm"*/}
                                   {/*               onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
-                                <th>Address
+                                <th>Title
                                   {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
                                   {/*              className="input-sm" placeholder="Tìm kiếm"*/}
                                   {/*              onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
-                                <th>Cost
+                                <th>Link
                                   {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
                                   {/*              className="input-sm" placeholder="Tìm kiếm"*/}
                                   {/*              onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
                                 {/*<th style={styles.topVertical}>Username</th>*/}
-                                <th style={styles.topVertical}>Button</th>
+                                <th style={styles.topVertical}>Status</th>
                               </tr>
                               </thead>
                               <tbody>
-                              {this.renderOrder()}
+                              {this.renderBanners()}
                               </tbody>
                             </Table>
                           </CardBody>
                         </Card></Col>
                         <Col xs="12" md="6"> <Card>
                           <CardBody>
-                            <p>Shippers</p>
+                            <p>Coupons</p>
                             <Table responsive>
                               <thead>
                               <tr>
                                 <th style={styles.topVertical}>Index</th>
-                                <th>Name
+                                <th>Code
                                   {/*<Input bsSize="sm" type="text" id="name" name="name"*/}
                                   {/*               className="input-sm" placeholder="Tìm kiếm"*/}
                                   {/*               onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
-                                <th>Phone
+                                <th>Amount
                                   {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
                                   {/*              className="input-sm" placeholder="Tìm kiếm"*/}
                                   {/*              onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
-                                <th style={styles.topVertical}>Button</th>
+                                <th>Type</th>
+                                <th>Expiry date</th>
+                                <th>Status</th>
                               </tr>
                               </thead>
                               <tbody>
-                              {this.renderShipper()}
+                              {this.renderCoupon()}
                               </tbody>
                             </Table>
-                            <hr/>
-                            <p>Delivery Units</p>
-                            <Table responsive>
-                              <thead>
-                              <tr>
-                                <th style={styles.topVertical}>Index</th>
-                                <th>Name
-                                  {/*<Input bsSize="sm" type="text" id="name" name="name"*/}
-                                  {/*               className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*               onChange={(event) => this.handleChange(event)}/>*/}
-                                </th>
-                                <th>Base Fee
-                                  {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
-                                </th>
-                                <th>Delivery Time
-                                  {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
-                                </th>
-                                {/*<th style={styles.topVertical}>Username</th>*/}
-                                <th style={styles.topVertical}>Button</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              {this.renderUnit()}
-                              </tbody>
-                            </Table>
+
 
                           </CardBody>
                         </Card></Col>
@@ -392,4 +327,4 @@ class Deliveries extends Component {
   }
 }
 
-export default Deliveries;
+export default Banners;

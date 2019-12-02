@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-  // Button,
+  Button,
   // Badge, Button,
   Card,
   CardBody, CardHeader, CardFooter,
@@ -18,13 +18,13 @@ import {
   // TabContent,
   // Table,
   // TabPane,
-  // FormGroup, Label
+  FormGroup, Label, Table
 } from 'reactstrap';
 // import CardFooter from "reactstrap/es/CardFooter";
 import Spinner from "reactstrap/es/Spinner";
 import config from "../../Config/strings";
 
-class DeliveryDetail extends Component {
+class OrderDetail extends Component {
 
   constructor(props) {
     super(props);
@@ -44,51 +44,50 @@ class DeliveryDetail extends Component {
       isLoaded: false,
       isEditing: false,
     };
-
   }
 
   componentDidMount() {
     this.getAccountDetailById(this.state.accountId);
   }
 
-  // updateAccountInfo(userId) {
-  //   // let avatarPath = document.getElementById('avatarPath').value;
-  //   // let mobilePhone = document.getElementById('mobilePhone').value;
-  //   // let address = document.getElementById('address').value;
-  //   // let givenName = document.getElementById('givenName').value;
-  //   // let name = document.getElementById('name').value;
-  //   // let avatarPath = this.state.data.avatarPath;
-  //   let mobilePhone = this.state.data.mobilePhone;
-  //   let address = this.state.data.address;
-  //   let givenName = this.state.data.givenName;
-  //   let name = this.state.data.name;
-  //   let token = localStorage.getItem('token');
-  //   let url = config.api_url + "/users/" + userId;
-  //   fetch(url, {
-  //     method: 'PUT',
-  //     headers: new Headers({
-  //       "Content-Type": "application/json",
-  //       "authorization": "Bearer " + token,
-  //     }),
-  //     body: JSON.stringify({
-  //       "user": {
-  //         // "avatar_path": avatarPath,
-  //         "mobile_phone": mobilePhone,
-  //         "address": address,
-  //         "given_name": givenName,
-  //         "name": name,
-  //       }
-  //     })
-  //   }).then((res) => res.json())
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((err) => console.log(err))
-  // }
+  updateAccountInfo(userId) {
+    // let avatarPath = document.getElementById('avatarPath').value;
+    // let mobilePhone = document.getElementById('mobilePhone').value;
+    // let address = document.getElementById('address').value;
+    // let givenName = document.getElementById('givenName').value;
+    // let name = document.getElementById('name').value;
+    // let avatarPath = this.state.data.avatarPath;
+    let mobilePhone = this.state.data.mobilePhone;
+    let address = this.state.data.address;
+    let givenName = this.state.data.givenName;
+    let name = this.state.data.name;
+    let token = localStorage.getItem('token');
+    let url = config.api_url + "/users/" + userId;
+    fetch(url, {
+      method: 'PUT',
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "authorization": "Bearer " + token,
+      }),
+      body: JSON.stringify({
+        "user": {
+          // "avatar_path": avatarPath,
+          "mobile_phone": mobilePhone,
+          "address": address,
+          "given_name": givenName,
+          "name": name,
+        }
+      })
+    }).then((res) => res.json())
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => console.log(err))
+  }
 
   getAccountDetailById(accountId) {
     // let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/deliveries/";
+    let url =  "https://sp-04-order.herokuapp.com/api/order/";
     fetch(url + accountId, {
       method: "GET",
       // headers: {
@@ -98,7 +97,9 @@ class DeliveryDetail extends Component {
       // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
       console.log(responseJson.data);
-      this.setState({data: responseJson, isLoaded: true, origin: JSON.parse(JSON.stringify(responseJson))});
+      this.setState({data: responseJson, isLoaded: true
+        // , origin: JSON.parse(JSON.stringify(responseJson.data))
+      });
       // localStorage.setItem('data', JSON.stringify(responseJson.data));
     }, function (error) {
     })
@@ -111,13 +112,13 @@ class DeliveryDetail extends Component {
       activeTab: newArray,
     });
   }
-  //
-  // closeEditingForm() {
-  //   let data = this.state.data;
-  //   data = this.state.origin;
-  //   this.state.isEditing = false;
-  //   this.setState(data);
-  // }
+
+  closeEditingForm() {
+    let data = this.state.data;
+    data = this.state.origin;
+    this.state.isEditing = false;
+    this.setState(data);
+  }
 
   static triggerUploadImage() {
     document.getElementById("avatar-path").click();
@@ -173,26 +174,26 @@ class DeliveryDetail extends Component {
                     {/*  </div>*/}
                     {/*</Col>*/}
                     <Row>
-                      <Col sm="12" xl="12">
+                      <Col sm="6" xl="12">
                         <div>
-                          <h3>{data.order_id}</h3>
+                          <h3>{data.id}</h3>
                         </div>
                       </Col>
-                      {/*<Col sm="12" xl="4">*/}
-                      {/*  <div>*/}
-                      {/*    <p>Số CMTND: </p>*/}
-                      {/*  </div>*/}
-                      {/*</Col>*/}
-                      {/*<Col sm="12" xl="4">*/}
-                      {/*  <div>*/}
-                      {/*    <p>Số điện thoại : {data.mobile_phone}</p>*/}
-                      {/*  </div>*/}
-                      {/*</Col>*/}
-                      {/*<Col sm="12" xl="4">*/}
-                      {/*  <div>*/}
-                      {/*    <p>Email : {data.email}</p>*/}
-                      {/*  </div>*/}
-                      {/*</Col>*/}
+                      <Col sm="12" xl="4">
+                        <div>
+                          <p>Name : {data.user.name} </p>
+                        </div>
+                      </Col>
+                      <Col sm="12" xl="4">
+                        <div>
+                          <p>Phone : {data.user.phone}</p>
+                        </div>
+                      </Col>
+                      <Col sm="12" xl="4">
+                        <div>
+                          <p>Address : {data.user.address}</p>
+                        </div>
+                      </Col>
                     </Row>
                   </Row>
                 </div>
@@ -200,17 +201,45 @@ class DeliveryDetail extends Component {
               <CardBody>
                 <div>
                   <Row>
-                    <Col xs="12" md="12">
-                      <p>Delivery unit id: {data.delivery_unit_id} </p>
-                      <p>Receive date: {data.expected_receving_date}</p>
-                      <p>Receiver phone: {data.receiver_phone}</p>
-                      <p>Address: {data.receiving_address}</p>
-                      <p>Cost: {data.total_cost}</p>
+                    <Col xs="12" md="8">
+                      <Table responsive>
+                        <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Quantity</th>
+                          <th>Name</th>
+                          <th>Price</th>
+                          <th>subTotal</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {data.products.map(item =>{return(
+                          <tr>
+                            <th>{item.id}</th>
+                            <th>{item.quantity}</th>
+                            <th>{item.name}</th>
+                            <th>{item.price}</th>
+                            <th>{item.subTotal}</th>
+                          </tr>
+                        ) })}
+                        </tbody>
+                      </Table>
                     </Col>
-                    {/*<Col xs="12" md="4">*/}
-                    {/*  <p>Số căn hộ sở hữu: </p>*/}
-                    {/*  <p>Địa chỉ: {data.address}</p>*/}
-                    {/*</Col>*/}
+                    <Col xs="12" md="4">
+                      <strong>Delivery</strong>
+                      <p>Status : {data.delivery.status}</p>
+                      <p>Fee : {data.delivery.fee}</p>
+                      <p>Date : {data.delivery.date}</p>
+                      <strong>Payment</strong>
+                      <p>Type : {data.payment.type}</p>
+                      <p>Status : {data.payment.status}</p>
+                      <strong>Another Information</strong>
+                      <p>Order status : {data.status}</p>
+                      <p>Discount : {data.discount}</p>
+                      <p>Total value : {data.totalValue}</p>
+                      <p>Warranty : {data.warranty}</p>
+                      {/*<p>Địa chỉ: {data.address}</p>*/}
+                    </Col>
                     {/*<Col xs="12" md="4">*/}
                     {/*  <p>Số lần bị report: </p>*/}
                     {/*</Col>*/}
@@ -284,20 +313,20 @@ class DeliveryDetail extends Component {
               </div>
             </CardBody>
             <CardFooter>
-              {/*<FormGroup check inline className="align-self-center">*/}
-              {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"*/}
-              {/*         value="option1"/>*/}
-              {/*  <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>*/}
-              {/*</FormGroup>*/}
-              {/*<FormGroup check inline className="align-content-center">*/}
-              {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"*/}
-              {/*         value="option2"/>*/}
-              {/*  <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>*/}
-              {/*</FormGroup>*/}
-              {/*<Button className="btn btn-info mr-1"*/}
-              {/*        onClick={() => this.updateAccountInfo(data.id)}>Lưu</Button>*/}
-              {/*<Button className="btn btn-default mr-1"*/}
-              {/*        onClick={() => this.closeEditingForm()}>Hủy</Button>*/}
+              <FormGroup check inline className="align-self-center">
+                <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"
+                       value="option1"/>
+                <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>
+              </FormGroup>
+              <FormGroup check inline className="align-content-center">
+                <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"
+                       value="option2"/>
+                <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>
+              </FormGroup>
+              <Button className="btn btn-info mr-1"
+                      onClick={() => this.updateAccountInfo(data.id)}>Lưu</Button>
+              <Button className="btn btn-default mr-1"
+                      onClick={() => this.closeEditingForm()}>Hủy</Button>
             </CardFooter>
           </Card>
         </Col>
@@ -315,7 +344,7 @@ class DeliveryDetail extends Component {
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6">
-              <p className="font-weight-bold">CHI TIẾT GIAO HÀNG </p>
+              <p className="font-weight-bold">CHI TIẾT TÀI KHOẢN </p>
             </Col>
           </Row>
           {this.isEditing()}
@@ -331,4 +360,4 @@ class DeliveryDetail extends Component {
   }
 }
 
-export default DeliveryDetail;
+export default OrderDetail;

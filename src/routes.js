@@ -76,20 +76,29 @@ const Investors = React.lazy(() => import('./views/Giga/Investors/Investors'));
 const UserAccounts = React.lazy(() => import('./views/Giga/UserAccounts/UserAccounts'));
 const Products = React.lazy(() => import('./views/Giga/Products/Products'));
 const Deliveries = React.lazy(() => import('./views/Giga/Deliveries/Deliveries'));
+const Orders = React.lazy(() => import('./views/Giga/Orders/Orders'));
+const Banners = React.lazy(() => import('./views/Giga/Banners/Banners'));
+const CSKH = React.lazy(() => import('./views/Giga/CSKH/cskh'));
 const AccountDetail = React.lazy(() => import('./views/Giga/AccountDetail/AccountDetail'));
 const ProductDetail = React.lazy(() => import('./views/Giga/ProductDetail/ProductDetail'));
 const DeliveryDetail = React.lazy(() => import('./views/Giga/DeliveryDetail/DeliveryDetail'));
+const OrderDetail = React.lazy(() => import('./views/Giga/OrderDetail/OrderDetail'));
+// const BannerDetail = React.lazy(() => import('./views/Giga/BannerDetail/BannerDetail'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/investors', exact: true, name: 'Quản lý danh sách chủ đầu tư', component: Investors},
+  { path: '/cskh', exact: true, name: 'Quản lý chăm sóc khách hàng', component: CSKH},
   { path: '/account/users', exact: true, name: 'Tài khoản người dùng', component: UserAccounts},
   { path: '/products', exact: true, name: 'Quản lý sản phẩm', component: Products},
   { path: '/deliveries', exact: true, name: 'Quản lý giao hàng', component: Deliveries},
+  { path: '/orders', exact: true, name: 'Quản lý đơn hàng', component: Orders},
+  { path: '/banners', exact: true, name: 'Quản lý quảng cáo - khuyến mại', component: Banners},
   { path: '/account/detail/:id', exact: true, name: 'Chi tiết tài khoản', component: AccountDetail},
   { path: '/product/:id', exact: true, name: 'Chi tiết sản phẩm', component: ProductDetail},
   { path: '/delivery/:id', exact: true, name: 'Chi tiết giao hàng', component: DeliveryDetail},
+  { path: '/order/:id', exact: true, name: 'Chi tiết đơn hàng', component: OrderDetail},
 
   // { path: '/editinvestor', exact: true, name: 'Thông tin chủ đầu tư', component: EditInvestorCompany},
   // { path: '/editagency', exact: true, name: 'Thông tin công ty môi giới', component: EditAgencyCompany},
