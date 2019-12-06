@@ -26,6 +26,11 @@ export default {
       icon: 'icon-cursor',
     },
     {
+      name: '9 - Quản lý tìm kiếm',
+      url: '/search',
+      icon: 'icon-cursor',
+    },
+    {
       name: '10 - Quản lý giao hàng',
       url: '/deliveries',
       icon: 'icon-pencil',

@@ -29,6 +29,8 @@ class Products extends Component {
     this.state = {
       activeTab: new Array(4).fill('1'),
       isLoaded: false,
+      isCategoriesLoaded: false,
+      isBrandsLoaded: false,
       data: [],
       alert: null,
       filterField: {
@@ -41,6 +43,8 @@ class Products extends Component {
 
   componentDidMount() {
     this.getProducts();
+    this.getCategories();
+    this.getBrands();
   }
 
   getProducts() {
@@ -59,6 +63,26 @@ class Products extends Component {
     ).then(response => response.json()).then((responseJson) => {
       console.log(responseJson.data,this.state.isLoaded);
       this.setState({data: responseJson.data, isLoaded: true});
+    }, function (error) {
+    })
+  }
+getCategories() {
+    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/categories/";
+    fetch(url, {
+      method: "GET",
+    }
+    ).then(response => response.json()).then((responseJson) => {
+      this.setState({categories: responseJson.data, isCategoriesLoaded: true});
+    }, function (error) {
+    })
+  }
+getBrands() {
+    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/brands/";
+    fetch(url, {
+      method: "GET",
+    }
+    ).then(response => response.json()).then((responseJson) => {
+      this.setState({brands: responseJson.data, isBrandsLoaded: true});
     }, function (error) {
     })
   }
@@ -193,7 +217,7 @@ class Products extends Component {
 }
 
   render() {
-    if (!this.state.isLoaded) {
+    if (!this.state.isLoaded || !this.state.isCategoriesLoaded || !this.state.isBrandsLoaded) {
       return <Spinner/>
     } else {
 
@@ -212,39 +236,95 @@ class Products extends Component {
                   <NavLink>
 
                     <TabPane tabId="2">
-                      <Card>
-                        <CardBody>
-                          <Table responsive>
-                            <thead>
-                            <tr>
-                              <th>ID</th>
-                              <th>Brand
-                                {/*<Input bsSize="sm" type="text" id="brand" name="brand"*/}
-                                {/*               className="input-sm" placeholder="Tìm kiếm"*/}
-                                {/*               onChange={(event) => this.handleChange(event)}/>*/}
-                              </th>
-                              <th>Price
-                                {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
-                                {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                {/*              onChange={(event) => this.handleChange(event)}/>*/}
-                              </th>
-                              <th>Description
-                                {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
-                                {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                {/*              onChange={(event) => this.handleChange(event)}/>*/}
-                              </th>
-                              <th>image</th>
-                              <th>Categories</th>
-                              <th>Button</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.renderProducts()}
-                            </tbody>
-                          </Table>
+                      <Row>
+                        <Col xs="12" md="8"><Card>
+                          <CardBody>
+                            <Table responsive>
+                              <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>Brand
+                                  {/*<Input bsSize="sm" type="text" id="brand" name="brand"*/}
+                                  {/*               className="input-sm" placeholder="Tìm kiếm"*/}
+                                  {/*               onChange={(event) => this.handleChange(event)}/>*/}
+                                </th>
+                                <th>Price
+                                  {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
+                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
+                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
+                                </th>
+                                <th>Description
+                                  {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
+                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
+                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
+                                </th>
+                                <th>image</th>
+                                <th>Categories</th>
+                                <th>Button</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {this.renderProducts()}
+                              </tbody>
+                            </Table>
 
-                        </CardBody>
-                      </Card>
+                          </CardBody>
+                        </Card></Col>
+                        <Col xs="12" md="2"><Card>
+                          <CardBody>
+                            <Table responsive>
+                              <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>Name
+                                </th>
+                                <th>Description
+                                </th>
+                                <th>Button</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {this.renderProducts()}
+                              </tbody>
+                            </Table>
+
+                          </CardBody>
+                        </Card></Col>
+                        <Col xs="12" md="2"><Card>
+                          <CardBody>
+                            <Table responsive>
+                              <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>Brand
+                                  {/*<Input bsSize="sm" type="text" id="brand" name="brand"*/}
+                                  {/*               className="input-sm" placeholder="Tìm kiếm"*/}
+                                  {/*               onChange={(event) => this.handleChange(event)}/>*/}
+                                </th>
+                                <th>Price
+                                  {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
+                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
+                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
+                                </th>
+                                <th>Description
+                                  {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
+                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
+                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
+                                </th>
+                                <th>image</th>
+                                <th>Categories</th>
+                                <th>Button</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {this.renderProducts()}
+                              </tbody>
+                            </Table>
+
+                          </CardBody>
+                        </Card></Col>
+                      </Row>
+
                     </TabPane>
                   </NavLink>
                 </NavItem>

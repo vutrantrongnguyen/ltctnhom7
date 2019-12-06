@@ -79,6 +79,7 @@ const Deliveries = React.lazy(() => import('./views/Giga/Deliveries/Deliveries')
 const Orders = React.lazy(() => import('./views/Giga/Orders/Orders'));
 const Banners = React.lazy(() => import('./views/Giga/Banners/Banners'));
 const CSKH = React.lazy(() => import('./views/Giga/CSKH/cskh'));
+const Search = React.lazy(() => import('./views/Giga/Search/Search'));
 const AccountDetail = React.lazy(() => import('./views/Giga/AccountDetail/AccountDetail'));
 const ProductDetail = React.lazy(() => import('./views/Giga/ProductDetail/ProductDetail'));
 const DeliveryDetail = React.lazy(() => import('./views/Giga/DeliveryDetail/DeliveryDetail'));
@@ -90,6 +91,7 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/investors', exact: true, name: 'Quản lý danh sách chủ đầu tư', component: Investors},
   { path: '/cskh', exact: true, name: 'Quản lý chăm sóc khách hàng', component: CSKH},
+  { path: '/search', exact: true, name: 'Quản lý tìm kiếm', component: Search},
   { path: '/account/users', exact: true, name: 'Tài khoản người dùng', component: UserAccounts},
   { path: '/products', exact: true, name: 'Quản lý sản phẩm', component: Products},
   { path: '/deliveries', exact: true, name: 'Quản lý giao hàng', component: Deliveries},
