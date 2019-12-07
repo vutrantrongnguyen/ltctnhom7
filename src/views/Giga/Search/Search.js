@@ -47,7 +47,7 @@ class Products extends Component {
   }
 
   getSearch() {
-    let url = "https://searchltct.herokuapp.com/api/search/1";
+    let url = "https://nhom6qtch.herokuapp.com/api/search/1";
     fetch(url, {
       method: "GET",
     }
@@ -124,7 +124,7 @@ class Products extends Component {
   updateSearch() {
     let requestData = {search: this.state.data};
     console.log(requestData);
-    let url = 'https://searchltct.herokuapp.com/api/search/1';
+    let url = 'https://nhom6qtch.herokuapp.com/api/search/1';
     fetch(url, {
       method: 'POST',
       headers: {
