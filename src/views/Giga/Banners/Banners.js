@@ -80,17 +80,60 @@ class Banners extends Component {
     }, function (error) {
     })
   }
-  
+
 
   deleteBanner(id, index) {
-    let token = localStorage.getItem('token');
-    let url = config.api_url + "/order/";
+    // let token = localStorage.getItem('token');
+    let url = "https://secure-mesa-29267.herokuapp.com/api/banners/";
     fetch(url + id, {
       method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      credentials: "same-origin"
+    }).then((res) => res.json())
+      .then((responseJson) => {
+        if (responseJson) {
+          const getAlert = () => (
+            <SweetAlert
+              success
+              timeout={1500}
+              onConfirm={() => {
+                this.hideAlert();
+                this.state.data.splice(index, 1)
+              }}
+            >
+              {responseJson.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        } else {
+          const getAlert = () => (
+            <SweetAlert
+              onConfirm={() => this.hideAlert()}
+            >
+              {responseJson.errors.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        }
+      })
+      .catch((err) => console.log(err))
+  }
+  deleteCoupon(id, index) {
+    // let token = localStorage.getItem('token');
+    let url = "https://secure-mesa-29267.herokuapp.com/api/coupons/";
+    fetch(url + id, {
+      method: 'DELETE',
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
       credentials: "same-origin"
     }).then((res) => res.json())
       .then((responseJson) => {
@@ -167,6 +210,27 @@ class Banners extends Component {
       alert: getAlert()
     });
   }
+  renderCouponAlert(Id, index) {
+    const getAlert = () => (
+      <SweetAlert
+        custom
+        showCancel
+        confirmBtnText="Xóa"
+        cancelBtnText="Hủy"
+        confirmBtnBsStyle="primary"
+        cancelBtnBsStyle="default"
+        // customIcon="thumbs-up.jpg"
+        title="Bạn chắc chắn muốn xóa?"
+        onConfirm={() => this.deleteCoupon(Id, index)}
+        onCancel={() => this.hideAlert()}
+      >
+        Bạn không thể khôi phục được thông tin đã xóa!
+      </SweetAlert>);
+    // this.state.data.splice(index, 1);
+    this.setState({
+      alert: getAlert()
+    });
+  }
 
   hideAlert() {
     this.setState({
@@ -184,7 +248,7 @@ class Banners extends Component {
       let content = data.map((data, index) =>
         <tr key={data.id}>
           <td>{index + 1}</td>
-          <td>{data.image_name}</td>
+          <td><img src={data.image_name} alt=""/></td>
           <td>{data.title}</td>
           <td>{data.status}</td>
           <td>{data.link}</td>
@@ -192,7 +256,7 @@ class Banners extends Component {
             {/*<Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i*/}
             {/*  className="fa fa-eye "/></Button>*/}
             {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
-            <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.order_id, index)}><i
+            <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.id, index)}><i
               className="cui-trash icons font-lg "/></Button>
           </td>
         </tr>);
@@ -217,7 +281,7 @@ class Banners extends Component {
             {/*<Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i*/}
             {/*  className="fa fa-eye "/></Button>*/}
             {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
-            <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.order_id, index)}><i
+            <Button className="mr-1 btn-danger" onClick={() => this.renderCouponAlert(data.id, index)}><i
               className="cui-trash icons font-lg "/></Button>
           </td>
         </tr>);

@@ -61,17 +61,17 @@ class UserAccounts extends Component {
 
   deleteUser(id, index) {
     // let token = localStorage.getItem('token');
-    let url = config.api_url + "/db/users/delete?id=";
+    let url ="https://secure-mountain-93147.herokuapp.com/api/user/";
     fetch(url + id, {
       method: 'DELETE',
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   "authorization": "Bearer " + token,
-      // },
-      // credentials: "same-origin"
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: "same-origin"
     }).then((res) => res.json())
       .then((responseJson) => {
-        if (responseJson.data) {
+        if (responseJson) {
           const getAlert = () => (
             <SweetAlert
               success

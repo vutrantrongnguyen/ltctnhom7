@@ -18,6 +18,7 @@ import {
 import Spinner from "reactstrap/es/Spinner";
 import config from "../../Config/strings";
 import SweetAlert from 'react-bootstrap-sweetalert';
+
 // import styles from "../../Config/styles";
 
 class Products extends Component {
@@ -51,36 +52,38 @@ class Products extends Component {
     // let token = localStorage.getItem('token');
     let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/products/";
     fetch(url, {
-      method: "GET",
-      // headers: {
+        method: "GET",
+        // headers: {
         // "Content-Type": "application/json",
         // "authorization": "Bearer " + token,
-      //   'Access-Control-Allow-Origin': "*",
-      //   'Access-Control-Allow-Headers': "*",
-      // },
-      // credentials: "same-origin"
-    }
+        //   'Access-Control-Allow-Origin': "*",
+        //   'Access-Control-Allow-Headers': "*",
+        // },
+        // credentials: "same-origin"
+      }
     ).then(response => response.json()).then((responseJson) => {
-      console.log(responseJson.data,this.state.isLoaded);
+      console.log(responseJson.data, this.state.isLoaded);
       this.setState({data: responseJson.data, isLoaded: true});
     }, function (error) {
     })
   }
-getCategories() {
+
+  getCategories() {
     let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/categories/";
     fetch(url, {
-      method: "GET",
-    }
+        method: "GET",
+      }
     ).then(response => response.json()).then((responseJson) => {
       this.setState({categories: responseJson.data, isCategoriesLoaded: true});
     }, function (error) {
     })
   }
-getBrands() {
+
+  getBrands() {
     let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/brands/";
     fetch(url, {
-      method: "GET",
-    }
+        method: "GET",
+      }
     ).then(response => response.json()).then((responseJson) => {
       this.setState({brands: responseJson.data, isBrandsLoaded: true});
     }, function (error) {
@@ -89,7 +92,7 @@ getBrands() {
 
   deleteProduct(id, index) {
     // let token = localStorage.getItem('token');
-    let url = config.api_url + "/products/";
+    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/products/";
     fetch(url + id, {
       method: 'DELETE',
       // headers: {
@@ -99,7 +102,95 @@ getBrands() {
       // credentials: "same-origin"
     }).then((res) => res.json())
       .then((responseJson) => {
-        if (responseJson.data) {
+        if (responseJson) {
+          const getAlert = () => (
+            <SweetAlert
+              success
+              timeout={1500}
+              onConfirm={() => {
+                this.hideAlert();
+                this.state.data.splice(index, 1)
+              }}
+            >
+              {responseJson.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        } else {
+          const getAlert = () => (
+            <SweetAlert
+              onConfirm={() => this.hideAlert()}
+            >
+              {responseJson.errors.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        }
+      })
+      .catch((err) => console.log(err))
+  }
+
+  deleteCategory(id, index) {
+    // let token = localStorage.getItem('token');
+    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/categories/";
+    fetch(url + id, {
+      method: 'DELETE',
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
+    }).then((res) => res.json())
+      .then((responseJson) => {
+        if (responseJson) {
+          const getAlert = () => (
+            <SweetAlert
+              success
+              timeout={1500}
+              onConfirm={() => {
+                this.hideAlert();
+                this.state.data.splice(index, 1)
+              }}
+            >
+              {responseJson.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        } else {
+          const getAlert = () => (
+            <SweetAlert
+              onConfirm={() => this.hideAlert()}
+            >
+              {responseJson.errors.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        }
+      })
+      .catch((err) => console.log(err))
+  }
+
+  deleteBrand(id, index) {
+    // let token = localStorage.getItem('token');
+    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/brands/";
+    fetch(url + id, {
+      method: 'DELETE',
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "authorization": "Bearer " + token,
+      // },
+      // credentials: "same-origin"
+    }).then((res) => res.json())
+      .then((responseJson) => {
+        if (responseJson) {
           const getAlert = () => (
             <SweetAlert
               success
@@ -173,6 +264,50 @@ getBrands() {
     });
   }
 
+  renderCategoryAlert(Id, index) {
+    const getAlert = () => (
+      <SweetAlert
+        custom
+        showCancel
+        confirmBtnText="Xóa"
+        cancelBtnText="Hủy"
+        confirmBtnBsStyle="primary"
+        cancelBtnBsStyle="default"
+        // customIcon="thumbs-up.jpg"
+        title="Bạn chắc chắn muốn xóa?"
+        onConfirm={() => this.deleteCategory(Id, index)}
+        onCancel={() => this.hideAlert()}
+      >
+        Bạn không thể khôi phục được thông tin đã xóa!
+      </SweetAlert>);
+    // this.state.data.splice(index, 1);
+    this.setState({
+      alert: getAlert()
+    });
+  }
+
+  renderBrandAlert(Id, index) {
+    const getAlert = () => (
+      <SweetAlert
+        custom
+        showCancel
+        confirmBtnText="Xóa"
+        cancelBtnText="Hủy"
+        confirmBtnBsStyle="primary"
+        cancelBtnBsStyle="default"
+        // customIcon="thumbs-up.jpg"
+        title="Bạn chắc chắn muốn xóa?"
+        onConfirm={() => this.deleteBrand(Id, index)}
+        onCancel={() => this.hideAlert()}
+      >
+        Bạn không thể khôi phục được thông tin đã xóa!
+      </SweetAlert>);
+    // this.state.data.splice(index, 1);
+    this.setState({
+      alert: getAlert()
+    });
+  }
+
   hideAlert() {
     this.setState({
       alert: null
@@ -201,6 +336,7 @@ getBrands() {
           <td>{index + 1}</td>
           <td>{data.brand}</td>
           <td>{data.price}</td>
+          <td>{data.name}</td>
           <td>{data.description}</td>
           <td><img src={data.image} alt="" height="100"/></td>
           <td>{data.category}</td>
@@ -214,7 +350,53 @@ getBrands() {
         </tr>);
       return content;
     }
-}
+  }
+
+  renderCategories() {
+    if (!this.state.isCategoriesLoaded) {
+      return <Spinner/>
+    } else {
+      let data = this.state.categories;
+      console.log(data);
+      let content = data.map((data, index) =>
+        <tr key={data.id}>
+          <td>{index + 1}</td>
+          <td>{data.name}</td>
+          <td>{data.description}</td>
+          <td>
+            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/product/' + data.id)}><i
+              className="fa fa-eye "/></Button>
+            {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
+            <Button className="mr-1 btn-danger" onClick={() => this.renderCategoryAlert(data.id, index)}><i
+              className="cui-trash icons font-lg "/></Button>
+          </td>
+        </tr>);
+      return content;
+    }
+  }
+
+  renderBrands() {
+    if (!this.state.isBrandsLoaded) {
+      return <Spinner/>
+    } else {
+      let data = this.state.brands;
+      console.log(this.state.brands);
+      let content = data.map((data, index) =>
+        <tr key={data.id}>
+          <td>{index + 1}</td>
+          <td>{data.name}</td>
+          <td>{data.description}</td>
+          <td>
+            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/product/' + data.id)}><i
+              className="fa fa-eye "/></Button>
+            {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
+            <Button className="mr-1 btn-danger" onClick={() => this.renderBrandAlert(data.id, index)}><i
+              className="cui-trash icons font-lg "/></Button>
+          </td>
+        </tr>);
+      return content;
+    }
+  }
 
   render() {
     if (!this.state.isLoaded || !this.state.isCategoriesLoaded || !this.state.isBrandsLoaded) {
@@ -234,7 +416,6 @@ getBrands() {
               <Nav tabs>
                 <NavItem>
                   <NavLink>
-
                     <TabPane tabId="2">
                       <Row>
                         <Col xs="12" md="8"><Card>
@@ -270,65 +451,49 @@ getBrands() {
 
                           </CardBody>
                         </Card></Col>
-                        <Col xs="12" md="2"><Card>
-                          <CardBody>
-                            <Table responsive>
-                              <thead>
-                              <tr>
-                                <th>ID</th>
-                                <th>Name
-                                </th>
-                                <th>Description
-                                </th>
-                                <th>Button</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              {this.renderProducts()}
-                              </tbody>
-                            </Table>
-
-                          </CardBody>
-                        </Card></Col>
-                        <Col xs="12" md="2"><Card>
-                          <CardBody>
-                            <Table responsive>
-                              <thead>
-                              <tr>
-                                <th>ID</th>
-                                <th>Brand
-                                  {/*<Input bsSize="sm" type="text" id="brand" name="brand"*/}
-                                  {/*               className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*               onChange={(event) => this.handleChange(event)}/>*/}
-                                </th>
-                                <th>Price
-                                  {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
-                                </th>
-                                <th>Description
-                                  {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
-                                </th>
-                                <th>image</th>
-                                <th>Categories</th>
-                                <th>Button</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              {this.renderProducts()}
-                              </tbody>
-                            </Table>
-
-                          </CardBody>
-                        </Card></Col>
+                        <Col xs="12" md="4">
+                          <Card>
+                            <CardBody>
+                              <p>Category</p>
+                              <Table responsive>
+                                <thead>
+                                <tr>
+                                  <th>Index</th>
+                                  <th>Name
+                                  </th>
+                                  <th>Description
+                                  </th>
+                                  <th>Button</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.renderCategories()}
+                                </tbody>
+                              </Table>
+                              <hr/>
+                              <p>Brand</p>
+                              <Table responsive>
+                                <thead>
+                                <tr>
+                                  <th>Index</th>
+                                  <th>Brand
+                                  </th>
+                                  <th>Description
+                                  </th>
+                                  <th>Button</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.renderBrands()}
+                                </tbody>
+                              </Table>
+                            </CardBody>
+                          </Card>
+                        </Col>
                       </Row>
-
                     </TabPane>
                   </NavLink>
                 </NavItem>
-
               </Nav>
               {/*<TabContent activeTab={this.state.activeTab[1]}>*/}
               {/*  {this.tabPane()}*/}

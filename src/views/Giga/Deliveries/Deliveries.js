@@ -97,7 +97,7 @@ class Deliveries extends Component {
 
   deleteOrder(id, index) {
     let token = localStorage.getItem('token');
-    let url = config.api_url + "/order/";
+    let url = "https://online-selling-website.herokuapp.com/deliveries/";
     fetch(url + id, {
       method: 'DELETE',
       headers: {
@@ -107,7 +107,93 @@ class Deliveries extends Component {
       credentials: "same-origin"
     }).then((res) => res.json())
       .then((responseJson) => {
-        if (responseJson.data) {
+        if (responseJson) {
+          const getAlert = () => (
+            <SweetAlert
+              success
+              timeout={1500}
+              onConfirm={() => {
+                this.hideAlert();
+                this.state.data.splice(index, 1)
+              }}
+            >
+              {responseJson.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        } else {
+          const getAlert = () => (
+            <SweetAlert
+              onConfirm={() => this.hideAlert()}
+            >
+              {responseJson.errors.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        }
+      })
+      .catch((err) => console.log(err))
+  }
+ deleteShipper(id, index) {
+    let token = localStorage.getItem('token');
+    let url = "https://online-selling-website.herokuapp.com/shippers/";
+    fetch(url + id, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": "Bearer " + token,
+      },
+      credentials: "same-origin"
+    }).then((res) => res.json())
+      .then((responseJson) => {
+        if (responseJson) {
+          const getAlert = () => (
+            <SweetAlert
+              success
+              timeout={1500}
+              onConfirm={() => {
+                this.hideAlert();
+                this.state.data.splice(index, 1)
+              }}
+            >
+              {responseJson.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        } else {
+          const getAlert = () => (
+            <SweetAlert
+              onConfirm={() => this.hideAlert()}
+            >
+              {responseJson.errors.message}
+            </SweetAlert>
+          );
+          this.setState({
+            alert: getAlert()
+          });
+        }
+      })
+      .catch((err) => console.log(err))
+  }
+ deleteUnit(id, index) {
+    // let token = localStorage.getItem('token');
+    let url = "https://online-selling-website.herokuapp.com/delivery_units/";
+    fetch(url + id, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        // "authorization": "Bearer " + token,
+      },
+      credentials: "same-origin"
+    }).then((res) => res.json())
+      .then((responseJson) => {
+        if (responseJson) {
           const getAlert = () => (
             <SweetAlert
               success
@@ -180,6 +266,48 @@ class Deliveries extends Component {
       alert: getAlert()
     });
   }
+renderShipperAlert(Id, index) {
+    const getAlert = () => (
+      <SweetAlert
+        custom
+        showCancel
+        confirmBtnText="Xóa"
+        cancelBtnText="Hủy"
+        confirmBtnBsStyle="primary"
+        cancelBtnBsStyle="default"
+        // customIcon="thumbs-up.jpg"
+        title="Bạn chắc chắn muốn xóa?"
+        onConfirm={() => this.deleteShipper(Id, index)}
+        onCancel={() => this.hideAlert()}
+      >
+        Bạn không thể khôi phục được thông tin đã xóa!
+      </SweetAlert>);
+    // this.state.data.splice(index, 1);
+    this.setState({
+      alert: getAlert()
+    });
+  }
+renderUnitAlert(Id, index) {
+    const getAlert = () => (
+      <SweetAlert
+        custom
+        showCancel
+        confirmBtnText="Xóa"
+        cancelBtnText="Hủy"
+        confirmBtnBsStyle="primary"
+        cancelBtnBsStyle="default"
+        // customIcon="thumbs-up.jpg"
+        title="Bạn chắc chắn muốn xóa?"
+        onConfirm={() => this.deleteUnit(Id, index)}
+        onCancel={() => this.hideAlert()}
+      >
+        Bạn không thể khôi phục được thông tin đã xóa!
+      </SweetAlert>);
+    // this.state.data.splice(index, 1);
+    this.setState({
+      alert: getAlert()
+    });
+  }
 
   hideAlert() {
     this.setState({
@@ -193,15 +321,6 @@ class Deliveries extends Component {
     if (!this.state.isLoaded || !this.state.isShipperLoaded || !this.state.isUnitLoaded) {
       return <Spinner/>
     } else {
-      // let filtering = (this.state.filterField.name || this.state.filterField.mobile_phone || this.state.filterField.email);
-      // let data;
-      // if (!filtering) {
-      //   data = this.state.data;
-      // } else {
-      //
-      //   data = this.state.data.filter(x => this.filteredUser(x));
-      //
-      // }
       let data = this.state.data;
       let content = data.map((data, index) =>
         <tr key={data.id}>
@@ -235,7 +354,7 @@ class Deliveries extends Component {
             {/*<Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i*/}
             {/*  className="fa fa-eye "/></Button>*/}
             {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
-            <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.order_id, index)}><i
+            <Button className="mr-1 btn-danger" onClick={() => this.renderShipperAlert(data.order_id, index)}><i
               className="cui-trash icons font-lg "/></Button>
           </td>
         </tr>);
@@ -258,7 +377,7 @@ class Deliveries extends Component {
             {/*<Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i*/}
             {/*  className="fa fa-eye "/></Button>*/}
             {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
-            <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.order_id, index)}><i
+            <Button className="mr-1 btn-danger" onClick={() => this.renderUnitAlert(data.order_id, index)}><i
               className="cui-trash icons font-lg "/></Button>
           </td>
         </tr>);
@@ -293,21 +412,14 @@ class Deliveries extends Component {
                               <tr>
                                 <th style={styles.topVertical}>ID</th>
                                 <th>Phone
-                                  {/*<Input bsSize="sm" type="text" id="name" name="name"*/}
-                                  {/*               className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*               onChange={(event) => this.handleChange(event)}/>*/}
+
                                 </th>
                                 <th>Address
-                                  {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
+
                                 </th>
                                 <th>Cost
-                                  {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
+
                                 </th>
-                                {/*<th style={styles.topVertical}>Username</th>*/}
                                 <th style={styles.topVertical}>Button</th>
                               </tr>
                               </thead>
@@ -317,7 +429,8 @@ class Deliveries extends Component {
                             </Table>
                           </CardBody>
                         </Card></Col>
-                        <Col xs="12" md="6"> <Card>
+                        <Col xs="12" md="6">
+                          <Card>
                           <CardBody>
                             <p>Shippers</p>
                             <Table responsive>
@@ -325,14 +438,10 @@ class Deliveries extends Component {
                               <tr>
                                 <th style={styles.topVertical}>Index</th>
                                 <th>Name
-                                  {/*<Input bsSize="sm" type="text" id="name" name="name"*/}
-                                  {/*               className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*               onChange={(event) => this.handleChange(event)}/>*/}
+
                                 </th>
                                 <th>Phone
-                                  {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
+
                                 </th>
                                 <th style={styles.topVertical}>Button</th>
                               </tr>
@@ -348,21 +457,11 @@ class Deliveries extends Component {
                               <tr>
                                 <th style={styles.topVertical}>Index</th>
                                 <th>Name
-                                  {/*<Input bsSize="sm" type="text" id="name" name="name"*/}
-                                  {/*               className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*               onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
                                 <th>Base Fee
-                                  {/*<Input bsSize="sm" type="text" id="phone" name="phone"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
                                 <th>Delivery Time
-                                  {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
-                                  {/*              className="input-sm" placeholder="Tìm kiếm"*/}
-                                  {/*              onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
-                                {/*<th style={styles.topVertical}>Username</th>*/}
                                 <th style={styles.topVertical}>Button</th>
                               </tr>
                               </thead>
@@ -380,9 +479,6 @@ class Deliveries extends Component {
                 </NavItem>
 
               </Nav>
-              {/*<TabContent activeTab={this.state.activeTab[1]}>*/}
-              {/*  {this.tabPane()}*/}
-              {/*</TabContent>*/}
               {this.state.alert}
             </Col>
           </Row>

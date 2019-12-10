@@ -75,7 +75,7 @@ class Orders extends Component {
       // credentials: "same-origin"
     }).then((res) => res.json())
       .then((responseJson) => {
-        if (responseJson.data) {
+        if (responseJson) {
           const getAlert = () => (
             <SweetAlert
               success
@@ -85,7 +85,7 @@ class Orders extends Component {
                 this.state.data.splice(index, 1)
               }}
             >
-              {responseJson.message}
+              {responseJson.success}
             </SweetAlert>
           );
           this.setState({
@@ -114,18 +114,6 @@ class Orders extends Component {
       activeTab: newArray,
     });
   }
-
-  // handleChange(event) {
-  //   this.state.filterField[event.target.name] = event.target.value;
-  //   this.setState(({filterField: this.state.filterField}));
-  // }
-  //
-  // filteredUser(user) {
-  //   let fields = this.state.filterField;
-  //   return ((user.name && user.name.toLowerCase().indexOf(fields.name.toLowerCase())) !== -1) &&
-  //     ((user.mobile_phone && user.mobile_phone.toLowerCase().indexOf(fields.mobile_phone.toLowerCase())) !== -1) &&
-  //     ((user.email && user.email.toLowerCase().indexOf(fields.email.toLowerCase())) !== -1);
-  // }
 
   renderAlert(Id, index) {
     const getAlert = () => (
@@ -175,7 +163,7 @@ class Orders extends Component {
       let content = data.map((data, index) =>
         <tr key={data.id}>
           <td>{index + 1}</td>
-          <td>{data.products.map(item => {return <p>{item}</p>})}</td>
+          <td>{data.products.map(x => x.name).join(', ')}</td>
           <td>{data.value}</td>
           <td>{data.status}</td>
           <td>{data.deliveryDate}</td>
