@@ -228,6 +228,9 @@ console.log(this.state.data);
           <Row>
             <Col xs="12" md="6">
               <p className="font-weight-bold">QUẢN LÝ TÌM KIẾM</p>
+              <div className="animated fadeIn">
+                <a href={config.nhom9_url}> Go to Team 9 website !</a>
+              </div>
             </Col>
           </Row>
           <Row>

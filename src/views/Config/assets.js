@@ -3,5 +3,6 @@ export default {
   mapIcon: require('../../assets/img/google-309740_640.png'),
   loadingPlaceholder: require('../../assets/img/loading.gif'),
   maxSize: 10485760,
+
 }
 

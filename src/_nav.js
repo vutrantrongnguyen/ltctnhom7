@@ -1,6 +1,11 @@
 export default {
   items: [
     {
+      name: '1 - Quản lý giỏ hàng, thanh toán',
+      url: '/shops',
+      icon: 'icon-people',
+    },
+ {
       name: '2 - Quản lý tài khoản',
       url: '/account/users',
       icon: 'icon-people',
@@ -19,6 +24,11 @@ export default {
       name: '5 - Quản lý quảng cáo - khuyến mại',
       url: '/banners',
       icon: 'icon-pencil',
+    },
+    {
+      name: '6 - Quản lý dữ liệu bán hàng',
+      url: '/database',
+      icon: 'icon-cursor',
     },
     {
       name: '8 - Chăm sóc khách hàng',

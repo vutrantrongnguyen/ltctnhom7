@@ -84,12 +84,16 @@ const AccountDetail = React.lazy(() => import('./views/Giga/AccountDetail/Accoun
 const ProductDetail = React.lazy(() => import('./views/Giga/ProductDetail/ProductDetail'));
 const DeliveryDetail = React.lazy(() => import('./views/Giga/DeliveryDetail/DeliveryDetail'));
 const OrderDetail = React.lazy(() => import('./views/Giga/OrderDetail/OrderDetail'));
+const Data = React.lazy(() => import('./views/Giga/Data/Data'));
+const Shop = React.lazy(() => import('./views/Giga/Shops/shops'));
 // const BannerDetail = React.lazy(() => import('./views/Giga/BannerDetail/BannerDetail'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/investors', exact: true, name: 'Quản lý danh sách chủ đầu tư', component: Investors},
+  { path: '/shops', exact: true, name: 'Quản lý giỏ hàng, thanh toán', component: Shop},
+  { path: '/database', exact: true, name: 'Quản lý dữ liệu bán hàng', component: Data},
   { path: '/cskh', exact: true, name: 'Quản lý chăm sóc khách hàng', component: CSKH},
   { path: '/search', exact: true, name: 'Quản lý tìm kiếm', component: Search},
   { path: '/account/users', exact: true, name: 'Tài khoản người dùng', component: UserAccounts},

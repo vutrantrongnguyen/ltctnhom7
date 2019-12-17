@@ -48,7 +48,7 @@ class Banners extends Component {
 
   getBanners() {
     // let token = localStorage.getItem('token');
-    let url = "https://secure-mesa-29267.herokuapp.com/api/banners";
+    let url =config.nhom5_url + "/api/banners";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -57,7 +57,7 @@ class Banners extends Component {
       // },
       // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
-      this.setState({banners: responseJson.data, isLoaded: true});
+      this.setState({banners: responseJson, isLoaded: true});
       console.log(responseJson.data);
     }, function (error) {
     })
@@ -65,7 +65,7 @@ class Banners extends Component {
 
   getCoupons() {
     // let token = localStorage.getItem('token');
-    let url = "https://secure-mesa-29267.herokuapp.com/api/coupons";
+    let url = config.nhom5_url + "/api/coupons";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -84,7 +84,7 @@ class Banners extends Component {
 
   deleteBanner(id, index) {
     // let token = localStorage.getItem('token');
-    let url = "https://secure-mesa-29267.herokuapp.com/api/banners/";
+    let url = config.nhom5_url + "/api/banners/";
     fetch(url + id, {
       method: 'DELETE',
       // headers: {
@@ -127,7 +127,7 @@ class Banners extends Component {
   }
   deleteCoupon(id, index) {
     // let token = localStorage.getItem('token');
-    let url = "https://secure-mesa-29267.herokuapp.com/api/coupons/";
+    let url = config.nhom5_url + "/api/coupons/";
     fetch(url + id, {
       method: 'DELETE',
       // headers: {
@@ -248,7 +248,7 @@ class Banners extends Component {
       let content = data.map((data, index) =>
         <tr key={data.id}>
           <td>{index + 1}</td>
-          <td><img src={data.image_name} alt=""/></td>
+          <td><img src={data.image_name} width="300"   alt=""/></td>
           <td>{data.title}</td>
           <td>{data.status}</td>
           <td>{data.link}</td>
@@ -301,6 +301,9 @@ class Banners extends Component {
           <Row>
             <Col xs="12" md="6">
               <p className="font-weight-bold">QUẢN LÝ QUẢNG CÁO - kHUYẾN MẠI</p>
+              <div className="animated fadeIn">
+                <a href={config.nhom5_url} > Go to Team 5 website !</a>
+              </div>
             </Col>
           </Row>
           <Row>

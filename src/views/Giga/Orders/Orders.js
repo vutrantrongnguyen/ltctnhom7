@@ -45,7 +45,7 @@ class Orders extends Component {
 
   getOrders() {
     // let token = localStorage.getItem('token');
-    let url = "https://sp-04-order.herokuapp.com/api/orders";
+    let url =config.nhom4_url + "/api/orders";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -65,7 +65,7 @@ class Orders extends Component {
 
   deleteOrder(id, index) {
     // let token = localStorage.getItem('token');
-    let url ="https://sp-04-order.herokuapp.com/api/order/";
+    let url =config.nhom4_url + "/api/order/";
     fetch(url + id, {
       method: 'DELETE',
       // headers: {
@@ -190,6 +190,9 @@ class Orders extends Component {
           <Row>
             <Col xs="12" md="6">
               <p className="font-weight-bold">QUẢN LÝ ĐƠN HÀNG</p>
+              <div className="animated fadeIn">
+                <a href={config.nhom4_url} > Go to Team 4 website !</a>
+              </div>
             </Col>
           </Row>
           <Row>

@@ -49,7 +49,7 @@ class Deliveries extends Component {
 
   getOrders() {
     // let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/deliveries";
+    let url = config.nhom10_url + "/deliveries";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -65,7 +65,7 @@ class Deliveries extends Component {
 
   getShippers() {
     // let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/shippers";
+    let url =config.nhom10_url + "/shippers";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -81,7 +81,7 @@ class Deliveries extends Component {
 
   getDeliveryUnits() {
     // let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/delivery_units";
+    let url = config.nhom10_url + "/delivery_units";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -97,7 +97,7 @@ class Deliveries extends Component {
 
   deleteOrder(id, index) {
     let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/deliveries/";
+    let url =config.nhom10_url + "/deliveries/";
     fetch(url + id, {
       method: 'DELETE',
       headers: {
@@ -140,7 +140,7 @@ class Deliveries extends Component {
   }
  deleteShipper(id, index) {
     let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/shippers/";
+    let url = config.nhom10_url + "/shippers/";
     fetch(url + id, {
       method: 'DELETE',
       headers: {
@@ -183,7 +183,7 @@ class Deliveries extends Component {
   }
  deleteUnit(id, index) {
     // let token = localStorage.getItem('token');
-    let url = "https://online-selling-website.herokuapp.com/delivery_units/";
+    let url = config.nhom10_url + "/delivery_units/";
     fetch(url + id, {
       method: 'DELETE',
       headers: {
@@ -396,6 +396,9 @@ renderUnitAlert(Id, index) {
           <Row>
             <Col xs="12" md="6">
               <p className="font-weight-bold">QUẢN LÝ GIAO HÀNG</p>
+              <div className="animated fadeIn">
+                <a href={config.nhom10_url}> Go to Team 10 website !</a>
+              </div>
             </Col>
           </Row>
           <Row>

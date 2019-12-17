@@ -45,7 +45,7 @@ class UserAccounts extends Component {
 
   getUserByPage() {
     // let token = localStorage.getItem('token');
-    let url ="https://secure-mountain-93147.herokuapp.com/api/users";
+    let url =config.nhom2_url + "/api/users";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -61,7 +61,7 @@ class UserAccounts extends Component {
 
   deleteUser(id, index) {
     // let token = localStorage.getItem('token');
-    let url ="https://secure-mountain-93147.herokuapp.com/api/user/";
+    let url =config.nhom2_url + "/api/user/";
     fetch(url + id, {
       method: 'DELETE',
       headers: {
@@ -195,6 +195,9 @@ console.log(data);
           <Row>
             <Col xs="12" md="6">
               <p className="font-weight-bold">TÀI KHOẢN NGƯỜI DÙNG</p>
+              <div className="animated fadeIn">
+                <a href={config.nhom2_url} > Go to Team 2 website !</a>
+              </div>
             </Col>
           </Row>
           <Row>

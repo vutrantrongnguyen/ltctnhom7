@@ -50,7 +50,7 @@ class Products extends Component {
 
   getProducts() {
     // let token = localStorage.getItem('token');
-    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/products/";
+    let url =config.nhom3_url + "/api/products/";
     fetch(url, {
         method: "GET",
         // headers: {
@@ -69,7 +69,7 @@ class Products extends Component {
   }
 
   getCategories() {
-    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/categories/";
+    let url =config.nhom3_url + "/api/categories/";
     fetch(url, {
         method: "GET",
       }
@@ -80,7 +80,7 @@ class Products extends Component {
   }
 
   getBrands() {
-    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/brands/";
+    let url = config.nhom3_url + "/api/brands/";
     fetch(url, {
         method: "GET",
       }
@@ -92,7 +92,7 @@ class Products extends Component {
 
   deleteProduct(id, index) {
     // let token = localStorage.getItem('token');
-    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/products/";
+    let url =config.nhom3_url + "/api/products/";
     fetch(url + id, {
       method: 'DELETE',
       // headers: {
@@ -136,7 +136,7 @@ class Products extends Component {
 
   deleteCategory(id, index) {
     // let token = localStorage.getItem('token');
-    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/categories/";
+    let url = config.nhom3_url + "/api/categories/";
     fetch(url + id, {
       method: 'DELETE',
       // headers: {
@@ -180,7 +180,7 @@ class Products extends Component {
 
   deleteBrand(id, index) {
     // let token = localStorage.getItem('token');
-    let url = "https://nguyenvd27-ltct-demo.herokuapp.com/api/brands/";
+    let url = config.nhom3_url + "/api/brands/";
     fetch(url + id, {
       method: 'DELETE',
       // headers: {
@@ -409,6 +409,9 @@ class Products extends Component {
           <Row>
             <Col xs="12" md="6">
               <p className="font-weight-bold">QUẢN LÝ SẢN PHẨM</p>
+              <div className="animated fadeIn">
+                <a href={config.nhom3_url} > Go to Team 3 website !</a>
+              </div>
             </Col>
           </Row>
           <Row>
@@ -434,6 +437,7 @@ class Products extends Component {
                                   {/*              className="input-sm" placeholder="Tìm kiếm"*/}
                                   {/*              onChange={(event) => this.handleChange(event)}/>*/}
                                 </th>
+                                <th>Name</th>
                                 <th>Description
                                   {/*<Input bsSize="sm" type="text" id="email" name="email"*/}
                                   {/*              className="input-sm" placeholder="Tìm kiếm"*/}
