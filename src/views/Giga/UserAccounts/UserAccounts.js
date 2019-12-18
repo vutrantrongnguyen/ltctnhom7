@@ -45,7 +45,7 @@ class UserAccounts extends Component {
 
   getUserByPage() {
     // let token = localStorage.getItem('token');
-    let url =config.nhom2_url + "/api/users";
+    let url = config.nhom2_url + "/api/users";
     fetch(url, {
       method: "GET",
       // headers: {
@@ -61,7 +61,7 @@ class UserAccounts extends Component {
 
   deleteUser(id, index) {
     // let token = localStorage.getItem('token');
-    let url =config.nhom2_url + "/api/user/";
+    let url = config.nhom2_url + "/api/user/";
     fetch(url + id, {
       method: 'DELETE',
       headers: {
@@ -158,32 +158,33 @@ class UserAccounts extends Component {
       console.log(this.state.isLoaded);
       return <Spinner/>
     } else {
-    let filtering = (this.state.filterField.name || this.state.filterField.mobile_phone || this.state.filterField.email);
-    let data;
-    if (!filtering) {
-      data = this.state.data;
-    } else {
+      let filtering = (this.state.filterField.name || this.state.filterField.mobile_phone || this.state.filterField.email);
+      let data;
+      if (!filtering) {
+        data = this.state.data;
+      } else {
 
-      data = this.state.data.filter(x => this.filteredUser(x));
-console.log(data);
+        data = this.state.data.filter(x => this.filteredUser(x));
+        console.log(data);
+      }
+      let content = data.map((data, index) =>
+        <tr key={data.id}>
+          <td>{index + 1}</td>
+          <td>{data.name}</td>
+          <td>{data.phone}</td>
+          <td>{data.email}</td>
+          <td>{data.username}</td>
+          <td>
+            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/account/detail/' + data.id)}><i
+              className="fa fa-eye "/></Button>
+            {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
+            <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.id, index)}><i
+              className="cui-trash icons font-lg "/></Button>
+          </td>
+        </tr>);
+      return content;
     }
-    let content = data.map((data, index) =>
-      <tr key={data.id}>
-        <td>{index + 1}</td>
-        <td>{data.name}</td>
-        <td>{data.phone}</td>
-        <td>{data.email}</td>
-        <td>{data.username}</td>
-        <td>
-          <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/account/detail/' + data.id)}><i
-            className="fa fa-eye "/></Button>
-          {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
-          <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.id, index)}><i
-            className="cui-trash icons font-lg "/></Button>
-        </td>
-      </tr>);
-    return content;
-  }}
+  }
 
   render() {
     if (!this.state.isLoaded) {
@@ -196,7 +197,17 @@ console.log(data);
             <Col xs="12" md="6">
               <p className="font-weight-bold">TÀI KHOẢN NGƯỜI DÙNG</p>
               <div className="animated fadeIn">
-                <a href={config.nhom2_url} > Go to Team 2 website !</a>
+                <Row>
+                  <Col xs="6" md="6">
+                  <a href={config.nhom2_url}> Go to Team 2 website !</a>
+                  </Col>
+                  <Col xs="6" md="6">
+
+                  <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/account/detail/')}><i
+                    className="fa fa-eye "/>Tạo mới</Button>
+                  </Col>
+
+                </Row>
               </div>
             </Col>
           </Row>
