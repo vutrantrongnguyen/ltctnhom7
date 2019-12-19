@@ -50,7 +50,7 @@ class Products extends Component {
 
   getProducts() {
     // let token = localStorage.getItem('token');
-    let url =config.nhom3_url + "/api/products/";
+    let url = config.nhom3_url + "/api/products/";
     fetch(url, {
         method: "GET",
         // headers: {
@@ -69,7 +69,7 @@ class Products extends Component {
   }
 
   getCategories() {
-    let url =config.nhom3_url + "/api/categories/";
+    let url = config.nhom3_url + "/api/categories/";
     fetch(url, {
         method: "GET",
       }
@@ -92,7 +92,7 @@ class Products extends Component {
 
   deleteProduct(id, index) {
     // let token = localStorage.getItem('token');
-    let url =config.nhom3_url + "/api/products/";
+    let url = config.nhom3_url + "/api/products/";
     fetch(url + id, {
       method: 'DELETE',
       // headers: {
@@ -410,7 +410,15 @@ class Products extends Component {
             <Col xs="12" md="6">
               <p className="font-weight-bold">QUẢN LÝ SẢN PHẨM</p>
               <div className="animated fadeIn">
-                <a href={config.nhom3_url} > Go to Team 3 website !</a>
+                <Row>
+                  <Col xs="6" md="6">
+                  <a href={config.nhom3_url}> Go to Team 3 website !</a>
+                  </Col>
+                  <Col xs="12" md="6">
+                  <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/product/add/')}><i
+                    className="fa fa-eye "/>Tạo mới</Button>
+                  </Col>
+                </Row>
               </div>
             </Col>
           </Row>

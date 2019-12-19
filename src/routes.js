@@ -76,6 +76,7 @@ const Investors = React.lazy(() => import('./views/Giga/Investors/Investors'));
 const UserAccounts = React.lazy(() => import('./views/Giga/UserAccounts/UserAccounts'));
 const CreateUser = React.lazy(() => import('./views/Giga/UserAccounts/CreateUser'));
 const Products = React.lazy(() => import('./views/Giga/Products/Products'));
+const CreateProduct = React.lazy(() => import('./views/Giga/Products/CreateProduct'));
 const Deliveries = React.lazy(() => import('./views/Giga/Deliveries/Deliveries'));
 const Orders = React.lazy(() => import('./views/Giga/Orders/Orders'));
 const Banners = React.lazy(() => import('./views/Giga/Banners/Banners'));
@@ -93,6 +94,7 @@ const Shop = React.lazy(() => import('./views/Giga/Shops/shops'));
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/investors', exact: true, name: 'Quản lý danh sách chủ đầu tư', component: Investors},
+  { path: '/product/add', exact: true, name: 'Tạo mới sản phẩm', component: CreateProduct},
   { path: '/user/add', exact: true, name: 'Tạo mới user', component: CreateUser},
   { path: '/shops', exact: true, name: 'Quản lý giỏ hàng, thanh toán', component: Shop},
   { path: '/database', exact: true, name: 'Quản lý dữ liệu bán hàng', component: Data},

@@ -32,7 +32,7 @@ import $ from 'jquery';
 window.jQuery = $;
 require('bootstrap');
 
-class CreateUser extends Component {
+class CreateProduct extends Component {
 
   constructor(props) {
     super(props);
@@ -176,7 +176,7 @@ class CreateUser extends Component {
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="email-input">Username</Label>
+                    <Label htmlFor="email-input">Price</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="username" id="username" required name="username"
@@ -274,4 +274,4 @@ class CreateUser extends Component {
     );
   }
 }
-export default CreateUser;
+export default CreateProduct;
