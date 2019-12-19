@@ -17,7 +17,7 @@ import {
   Row,
   // TabContent,
   // Table,
-  // TabPane,
+  TabPane,
   FormGroup, Label
 } from 'reactstrap';
 // import CardFooter from "reactstrap/es/CardFooter";
@@ -51,33 +51,13 @@ class AccountDetail extends Component {
   }
 
   updateAccountInfo(userId) {
-    // let avatarPath = document.getElementById('avatarPath').value;
-    // let mobilePhone = document.getElementById('mobilePhone').value;
-    // let address = document.getElementById('address').value;
-    // let givenName = document.getElementById('givenName').value;
-    // let name = document.getElementById('name').value;
-    // let avatarPath = this.state.data.avatarPath;
-    let mobilePhone = this.state.data.mobilePhone;
-    let address = this.state.data.address;
-    let givenName = this.state.data.givenName;
-    let name = this.state.data.name;
-    let token = localStorage.getItem('token');
-    let url = config.api_url + "/users/" + userId;
-    fetch(url, {
+    let url ='https://secure-mountain-93147.herokuapp.com/api/user/';
+    fetch(url + userId, {
       method: 'PUT',
       headers: new Headers({
         "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
       }),
-      body: JSON.stringify({
-        "user": {
-          // "avatar_path": avatarPath,
-          "mobile_phone": mobilePhone,
-          "address": address,
-          "given_name": givenName,
-          "name": name,
-        }
-      })
+      body: JSON.stringify(this.state.data)
     }).then((res) => res.json())
       .then((response) => {
         console.log(response.data);
@@ -86,19 +66,12 @@ class AccountDetail extends Component {
   }
 
   getAccountDetailById(accountId) {
-    // let token = localStorage.getItem('token');
     let url = "https://secure-mountain-93147.herokuapp.com/api/user/";
     fetch(url + accountId, {
       method: "GET",
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   "authorization": "Bearer " + token,
-      // },
-      // credentials: "same-origin"
     }).then(response => response.json()).then((responseJson) => {
       console.log(responseJson);
       this.setState({data: responseJson, isLoaded: true, origin: JSON.parse(JSON.stringify(responseJson))});
-      // localStorage.setItem('data', JSON.stringify(responseJson.data));
     }, function (error) {
     })
   }
@@ -111,199 +84,99 @@ class AccountDetail extends Component {
     });
   }
 
-  closeEditingForm() {
-    let data = this.state.data;
-    data = this.state.origin;
-    this.state.isEditing = false;
-    this.setState(data);
-  }
 
-  static triggerUploadImage() {
-    document.getElementById("avatar-path").click();
-  }
-
-  uploadImage() {
-    let token = localStorage.getItem('token');
-    // let avatarPath = document.getElementById('avatar-path').value;
-    let preview = document.querySelector('#logo');
-    let file = document.querySelector('#avatar-path').files[0]; //sames as here
-    if (file) {
-      let formData = new FormData();
-      formData.append("file[new_image_path][]", file);
-      fetch('http://159.65.136.144:4001/api/v1/files', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          "authorization": "Bearer " + token,
+  handleChangeData = (event) => {
+    let input = event.target;
+    this.setState({
+      investor:
+        {
+          ...this.state.investor,
+          [input.name]: input.value
         }
-      }).then(response => response.json()).then((responseJson) => {
-        let imagePath = responseJson.data.files[0].relativeUrl;
-        preview.src = imagePath;
-        this.setState({logo: imagePath});
+    });
+  };
 
-      }, function (error) {
-        console.log(error);
-      });
-    }
-  }
-  handleBuildingsDataChange(event) {
-    let target = event.target;
-    let name = target.name;
-    let value = target.value;
-    let data = this.state.data;
-    data[name] = value;
-    console.log(value);
-    this.setState({data: data});
-
-  }
-  isEditing() {
-    let data = this.state.data;
-    if (!this.state.isEditing) {
-      return (
-        <Row>
-          <Col sm="12" xl="12">
-            <Card>
-              <CardHeader>
-                <div>
-                  <Row style={{marginTop:10}}>
-                    {/*<Col sm="12" xl="3">*/}
-                    {/*  <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}} className="avatar avatar-online avatar-lg m-5">*/}
-                    {/*    <img src={data && data.avatar || "/assets/img/logo-placeholder.png"} style={{height: 120,borderRadius:50 }} />*/}
-                    {/*  </div>*/}
-                    {/*</Col>*/}
-                    <Row>
-                    <Col sm="12" xl="12">
-                      <div>
-                        <h3>{data.name}</h3>
-                      </div>
-                    </Col>
-                    {/*<Col sm="12" xl="4">*/}
-                    {/*  <div>*/}
-                    {/*    <p>Số CMTND: </p>*/}
-                    {/*  </div>*/}
-                    {/*</Col>*/}
-                    {/*<Col sm="12" xl="4">*/}
-                    {/*  <div>*/}
-                    {/*    <p>Số điện thoại : {data.phone}</p>*/}
-                    {/*  </div>*/}
-                    {/*</Col>*/}
-                    {/*<Col sm="12" xl="4">*/}
-                    {/*  <div>*/}
-                    {/*    <p>Email : {data.email}</p>*/}
-                    {/*  </div>*/}
-                    {/*</Col>*/}
-                  </Row>
-                  </Row>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <div>
-                  <Row>
-                    <Col xs="12" md="12">
-                      <p>Email: {data.email} </p>
-                      <p>Username: {data.username} </p>
-                      <p>Phone: {data.phone} </p>
-                      <p>Type: {data.type}</p>
-                      <p>API_token: {data.api_token}</p>
-                    </Col>
-                    {/*<Col xs="12" md="4">*/}
-                    {/*  <p>Số căn hộ sở hữu: </p>*/}
-                    {/*  <p>Địa chỉ: {data.address}</p>*/}
-                    {/*</Col>*/}
-                    {/*<Col xs="12" md="4">*/}
-                    {/*  <p>Số lần bị report: </p>*/}
-                    {/*</Col>*/}
-                  </Row>
-                </div>
-              </CardBody>
-              <CardFooter>
-                <div className="align-items-center">
-                {/*<FormGroup check inline className="align-self-center">*/}
-                {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"*/}
-                {/*         value="option1"/>*/}
-                {/*  <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>*/}
-                {/*</FormGroup>*/}
-                {/*<FormGroup check inline className="align-content-center">*/}
-                {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"*/}
-                {/*         value="option2"/>*/}
-                {/*  <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>*/}
-                {/*</FormGroup>*/}
-                </div>
-                {/*<Button className="btn btn-info mr-1"*/}
-                {/*        onClick={() => this.showEditingForm()}>Sửa</Button>*/}
-                {/*<Button className="btn btn-danger mr-1"*/}
-                {/*        onClick={() => this.deleteBuilding(building.id)}>Xóa</Button>*/}
-              </CardFooter>
-            </Card>
-          </Col>
-        </Row>
-      )
-    } else {
-      return (<Row>
-        <Col sm="12" xl="12">
+  tabPane() {
+    return (
+      <>
+        <TabPane tabId="1">
           <Card>
-            <CardHeader>
-              <div>
-                <Row>
-                  <Col sm="4" xl="4">
-                    <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}}>
-                      {/*<Input style={{display: 'none'}} type="file" id="avatar-path" name="avatar-path"*/}
-                      {/*       onChange={() => this.uploadImage()}/>*/}
-                      {/*<img onClick={() => AccountDetail.triggerUploadImage()} id="logo" height="120"*/}
-                      {/*     src={data && data.avatar || "/assets/img/logo-placeholder.png"} alt="Logo preview..."/>*/}
-                    </div>
-                  </Col>
-                  <Col sm="4" xl="4">
-                    <div>
-                      <h3>{data.name}</h3>
-                    </div>
-                  </Col>
-                  <Col sm="4" xl="4">
-                    <div>
-                      <p>Số điện thoại :<Input id="phone" defaultValue={data.phone}  onChange={(event) => this.handleBuildingsDataChange(event)}/></p>
 
-                      <p>Email : {data.email}</p>
-
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-            </CardHeader>
             <CardBody>
-              <div>
-                <Row>
-                  <Col xs="12" md="4">
-                    <p>Username: </p>
+              <div id="AddInvestor">
+                <FormGroup row>
+                  <Col md="3">
+                    <Label htmlFor="text-input">Name</Label>
                   </Col>
-                  <Col xs="12" md="4">
+                  <Col xs="12" md="9">
+                    <Input type="text" id="name" name="name" defaultValue={this.state.data.name}
+                           onChange={(event) => this.handleChangeData(event)}/>
                   </Col>
-                  <Col xs="12" md="4">
+                </FormGroup>
+                <FormGroup row>
+                  <Col md="3">
+                    <Label htmlFor="email-input">Username</Label>
                   </Col>
-                </Row>
+                  <Col xs="12" md="9">
+                    <Input type="username" id="username" name="username" autoComplete="username"
+                           defaultValue={this.state.data.username}
+                           onChange={(event) => this.handleChangeData(event)}/>
+                    {/*<FormText className="help-block">Please enter your email</FormText>*/}
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Col md="3">
+                    <Label htmlFor="password-input">Phone</Label>
+                  </Col>
+                  <Col xs="12" md="9">
+                    <Input type="phone" id="phone" name="phone" autoComplete="phone"
+                           defaultValue={this.state.data.phone}
+                           onChange={(event) => this.handleChangeData(event)}/>
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Col md="3">
+                    <Label htmlFor="select">Type</Label>
+                  </Col>
+                  <Col xs="12" md="9">
+                    <Input type="select" name="type" id="type" required autoComplete="type" defaultValue={this.state.data.type} onChange={(event) => this.handleChangeData(event)}>
+                      <option value="4">Please select</option>
+                      <option value="0">Admin</option>
+                      <option value="1">Staff</option>
+                      <option value="2">User</option>
+
+                    </Input>
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Col md="3">
+                    <Label htmlFor="email">Email</Label>
+                  </Col>
+                  <Col xs="12" md="9">
+                    <Input type="email" id="email" name="email" autoComplete="email"
+                           defaultValue={this.state.data.email} onChange={(event) => this.handleChangeData(event)}/>
+                    {/*<FormText className="help-block">Please enter a complex password</FormText>*/}
+                  </Col>
+                </FormGroup>
+                <div className="form-actions">
+                  <Button className="mr-1 btn-danger" type="submit"
+                          onClick={() => this.props.history.goBack()}>Hủy</Button>
+                  <Button onClick={() => this.toggleLarge()} className="mr-1" type="submit" color="info">Xem
+                    trước</Button>
+                  {/*<Button className="mr-1" type="submit" color="info">Xem trước</Button>*/}
+                  <Button className="mr-1 btn-primary" color="primary" type="submit" value="SEND POST"
+                          onClick={() => this.updateAccountInfo(this.state.data.id)}>Cập nhật</Button>
+                </div>
               </div>
             </CardBody>
-            <CardFooter>
-              <FormGroup check inline className="align-self-center">
-                <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"
-                       value="option1"/>
-                <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>
-              </FormGroup>
-              <FormGroup check inline className="align-content-center">
-                <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"
-                       value="option2"/>
-                <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>
-              </FormGroup>
-              <Button className="btn btn-info mr-1"
-                      onClick={() => this.updateAccountInfo(data.id)}>Lưu</Button>
-              <Button className="btn btn-default mr-1"
-                      onClick={() => this.closeEditingForm()}>Hủy</Button>
-            </CardFooter>
-          </Card>
-        </Col>
-      </Row>)
-    }
-  }
 
+
+          </Card>
+        </TabPane>
+      </>
+    )
+      ;
+  }
   render() {
 
     if (!this.state.isLoaded) {
@@ -317,7 +190,8 @@ class AccountDetail extends Component {
               <p className="font-weight-bold">CHI TIẾT TÀI KHOẢN </p>
             </Col>
           </Row>
-          {this.isEditing()}
+          {this.tabPane()}
+          {this.state.alert}
           <div className="form-actions">
             {/*<Button type="submit" color="primary" className="mr-1">Hủy</Button>*/}
             {/*<Button type="submit" color="info" className="mr-1">Hoàn thành</Button>*/}

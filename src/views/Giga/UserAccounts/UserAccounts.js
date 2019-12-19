@@ -203,7 +203,7 @@ class UserAccounts extends Component {
                   </Col>
                   <Col xs="6" md="6">
 
-                  <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/account/detail/')}><i
+                  <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/user/add')}><i
                     className="fa fa-eye "/>Tạo mới</Button>
                   </Col>
 
