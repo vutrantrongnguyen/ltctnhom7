@@ -32,7 +32,7 @@ import $ from 'jquery';
 window.jQuery = $;
 require('bootstrap');
 
-class CreateProduct extends Component {
+class CreateUser extends Component {
 
   constructor(props) {
     super(props);
@@ -167,16 +167,15 @@ class CreateProduct extends Component {
 
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="text-input">Name</Label>
+                    <Label htmlFor="file-input">Banner Image</Label>
                   </Col>
                   <Col xs="12" md="9">
-                    <Input type="text" id="name" name="name" required onChange={(event) => this.handleChangeData(event)}
-                    />
+                    <Input type="file" id="file-input" name="file-input" />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="email-input">Price</Label>
+                    <Label htmlFor="email-input">Title</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="username" id="username" required name="username"
@@ -186,55 +185,12 @@ class CreateProduct extends Component {
 
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="password">Description</Label>
+                    <Label htmlFor="password">Link</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="password" id="password" required name="password"
                            onChange={(event) => this.handleChangeData(event)}
                     />
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="phone">Category</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="phone" id="phone" name="phone" required autoComplete="phone"
-                           onChange={(event) => this.handleChangeData(event)}
-                    />
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="email">Brand</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="email" id="email" name="email" required autoComplete="email"
-                           onChange={(event) => this.handleChangeData(event)}
-                    />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="select">Sold out</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="select" name="type" id="type" required autoComplete="type" onChange={(event) => this.handleChangeData(event)}>
-                      <option value="4">Please select</option>
-                      <option value="0">True</option>
-                      <option value="1">False</option>
-
-                    </Input>
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="type">Image</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="type" id="type" name="type" required
-                           onChange={(event) => this.handleChangeData(event)}/>
                   </Col>
                 </FormGroup>
                 <div className="form-actions">
@@ -259,7 +215,7 @@ class CreateProduct extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" md="6">
-            <p className="font-weight-bold">ADD NEW PRODUCT</p>
+            <p className="font-weight-bold">ADD NEW BANNER</p>
           </Col>
         </Row>
         <Row>
@@ -274,4 +230,4 @@ class CreateProduct extends Component {
     );
   }
 }
-export default CreateProduct;
+export default CreateUser;

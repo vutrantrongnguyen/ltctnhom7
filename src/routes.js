@@ -77,12 +77,17 @@ const UserAccounts = React.lazy(() => import('./views/Giga/UserAccounts/UserAcco
 const CreateUser = React.lazy(() => import('./views/Giga/UserAccounts/CreateUser'));
 const Products = React.lazy(() => import('./views/Giga/Products/Products'));
 const CreateProduct = React.lazy(() => import('./views/Giga/Products/CreateProduct'));
+const CreateBanner = React.lazy(() => import('./views/Giga/Banners/CreateBanner'));
+const CreateCoupon = React.lazy(() => import('./views/Giga/Banners/CreateCoupon'));
 const Deliveries = React.lazy(() => import('./views/Giga/Deliveries/Deliveries'));
+const CreateDelivery = React.lazy(() => import('./views/Giga/Deliveries/CreateDelivery'));
 const Orders = React.lazy(() => import('./views/Giga/Orders/Orders'));
 const Banners = React.lazy(() => import('./views/Giga/Banners/Banners'));
 const CSKH = React.lazy(() => import('./views/Giga/CSKH/cskh'));
 const Search = React.lazy(() => import('./views/Giga/Search/Search'));
 const AccountDetail = React.lazy(() => import('./views/Giga/AccountDetail/AccountDetail'));
+const BannerDetail = React.lazy(() => import('./views/Giga/BannerDetail/BannerDetail'));
+const CouponDetail = React.lazy(() => import('./views/Giga/CouponDetail/CouponDetail'));
 const ProductDetail = React.lazy(() => import('./views/Giga/ProductDetail/ProductDetail'));
 const DeliveryDetail = React.lazy(() => import('./views/Giga/DeliveryDetail/DeliveryDetail'));
 const OrderDetail = React.lazy(() => import('./views/Giga/OrderDetail/OrderDetail'));
@@ -95,6 +100,9 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/investors', exact: true, name: 'Quản lý danh sách chủ đầu tư', component: Investors},
   { path: '/product/add', exact: true, name: 'Tạo mới sản phẩm', component: CreateProduct},
+  { path: '/delivery/add', exact: true, name: 'Tạo mới giao hàng', component: CreateDelivery},
+  { path: '/banner/add', exact: true, name: 'Tạo mới quảng cáo', component: CreateBanner},
+  { path: '/coupon/add', exact: true, name: 'Tạo mới khuyến mại', component: CreateCoupon},
   { path: '/user/add', exact: true, name: 'Tạo mới user', component: CreateUser},
   { path: '/shops', exact: true, name: 'Quản lý giỏ hàng, thanh toán', component: Shop},
   { path: '/database', exact: true, name: 'Quản lý dữ liệu bán hàng', component: Data},
@@ -106,6 +114,8 @@ const routes = [
   { path: '/orders', exact: true, name: 'Quản lý đơn hàng', component: Orders},
   { path: '/banners', exact: true, name: 'Quản lý quảng cáo - khuyến mại', component: Banners},
   { path: '/account/detail/:id', exact: true, name: 'Chi tiết tài khoản', component: AccountDetail},
+  { path: '/banner/detail/:id', exact: true, name: 'Chi tiết quảng cáo', component: BannerDetail},
+  { path: '/coupon/detail/:id', exact: true, name: 'Chi tiết khuyến mại', component: CouponDetail},
   { path: '/product/:id', exact: true, name: 'Chi tiết sản phẩm', component: ProductDetail},
   { path: '/delivery/:id', exact: true, name: 'Chi tiết giao hàng', component: DeliveryDetail},
   { path: '/order/:id', exact: true, name: 'Chi tiết đơn hàng', component: OrderDetail},

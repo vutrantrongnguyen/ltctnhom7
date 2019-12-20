@@ -11,6 +11,6 @@ export default {
   nhom6_url: "http://client.us-east-1.elasticbeanstalk.com",
   nhom8_url: "https://infinite-chamber-68193.herokuapp.com/CSKH",
   nhom9_url: "https://frontendltct.herokuapp.com",
-  nhom10_url: "https://shoppingonlineweb.herokuapp.com",
+  nhom10_url: "https://online-selling-website.herokuapp.com",
   nhom11_url: "https://m11-inventory.herokuapp.com",
 }

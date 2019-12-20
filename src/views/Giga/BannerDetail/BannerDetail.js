@@ -17,8 +17,8 @@ import {
   Row,
   // TabContent,
   // Table,
-  // TabPane,
-  FormGroup, Label, TabPane
+  TabPane,
+  FormGroup, Label
 } from 'reactstrap';
 // import CardFooter from "reactstrap/es/CardFooter";
 import Spinner from "reactstrap/es/Spinner";
@@ -51,33 +51,13 @@ class AccountDetail extends Component {
   }
 
   updateAccountInfo(userId) {
-    // let avatarPath = document.getElementById('avatarPath').value;
-    // let mobilePhone = document.getElementById('mobilePhone').value;
-    // let address = document.getElementById('address').value;
-    // let givenName = document.getElementById('givenName').value;
-    // let name = document.getElementById('name').value;
-    // let avatarPath = this.state.data.avatarPath;
-    let mobilePhone = this.state.data.mobilePhone;
-    let address = this.state.data.address;
-    let givenName = this.state.data.givenName;
-    let name = this.state.data.name;
-    let token = localStorage.getItem('token');
-    let url = config.api_url + "/users/" + userId;
-    fetch(url, {
+    let url =config.nhom5_url + '/api/banners/';
+    fetch(url + userId, {
       method: 'PUT',
       headers: new Headers({
         "Content-Type": "application/json",
-        "authorization": "Bearer " + token,
       }),
-      body: JSON.stringify({
-        "user": {
-          // "avatar_path": avatarPath,
-          "mobile_phone": mobilePhone,
-          "address": address,
-          "given_name": givenName,
-          "name": name,
-        }
-      })
+      body: JSON.stringify(this.state.data)
     }).then((res) => res.json())
       .then((response) => {
         console.log(response.data);
@@ -86,12 +66,12 @@ class AccountDetail extends Component {
   }
 
   getAccountDetailById(accountId) {
-    let url =  "https://nguyenvd27-ltct-demo.herokuapp.com/api/products/";
+    let url =config.nhom5_url+ "/api/banners/";
     fetch(url + accountId, {
       method: "GET",
     }).then(response => response.json()).then((responseJson) => {
-      console.log(responseJson.data);
-      this.setState({data: responseJson.data[0], isLoaded: true, origin: JSON.parse(JSON.stringify(responseJson.data))});
+      console.log(responseJson);
+      this.setState({data: responseJson.data, isLoaded: true, origin: JSON.parse(JSON.stringify(responseJson))});
     }, function (error) {
     })
   }
@@ -105,14 +85,18 @@ class AccountDetail extends Component {
   }
 
 
-  static triggerUploadImage() {
-    document.getElementById("avatar-path").click();
-  }
-
-
+  handleChangeData = (event) => {
+    let input = event.target;
+    this.setState({
+      investor:
+        {
+          ...this.state.investor,
+          [input.name]: input.value
+        }
+    });
+  };
 
   tabPane() {
-    console.log(this.state.data);
     return (
       <>
         <TabPane tabId="1">
@@ -125,78 +109,51 @@ class AccountDetail extends Component {
                     <Label htmlFor="text-input">Name</Label>
                   </Col>
                   <Col xs="12" md="9">
-                    <Input type="text" id="name" name="name" defaultValue={this.state.data.name}
+                    <Input type="text" id="name" name="name" defaultValue={this.state.data.image_name}
                            onChange={(event) => this.handleChangeData(event)}/>
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="email-input">Price</Label>
+                    <Label htmlFor="email-input">Title</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="username" id="username" name="username" autoComplete="username"
-                           defaultValue={this.state.data.price}
+                           defaultValue={this.state.data.title}
                            onChange={(event) => this.handleChangeData(event)}/>
                     {/*<FormText className="help-block">Please enter your email</FormText>*/}
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="password-input">Description</Label>
+                    <Label htmlFor="password-input">Link</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="phone" id="phone" name="phone" autoComplete="phone"
-                           defaultValue={this.state.data.description}
+                           defaultValue={this.state.data.link}
                            onChange={(event) => this.handleChangeData(event)}/>
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="select">Category</Label>
+                    <Label htmlFor="select">Status</Label>
                   </Col>
                   <Col xs="12" md="9">
-                    <Input type="select" name="type" id="type" required autoComplete="type" defaultValue={this.state.data.category} onChange={(event) => this.handleChangeData(event)}>
+                    <Input type="select" name="type" id="type" required autoComplete="type" defaultValue={this.state.data.type} onChange={(event) => this.handleChangeData(event)}>
                       <option value="4">Please select</option>
-                      <option value="0">Admin</option>
-                      <option value="1">Staff</option>
-                      <option value="2">User</option>
+                      <option value="0">1</option>
+                      <option value="1">2</option>
+                      <option value="2">3</option>
 
                     </Input>
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="email">Brand</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="email" id="email" name="email" autoComplete="email"
-                           defaultValue={this.state.data.brand} onChange={(event) => this.handleChangeData(event)}/>
-                    {/*<FormText className="help-block">Please enter a complex password</FormText>*/}
-                  </Col>
-                </FormGroup>
- <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="email">Sold out</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="email" id="email" name="email" autoComplete="email"
-                           defaultValue={this.state.data.sold_out} onChange={(event) => this.handleChangeData(event)}/>
-                    {/*<FormText className="help-block">Please enter a complex password</FormText>*/}
-                  </Col>
-                </FormGroup>
- <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="email">Image</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="email" id="email" name="email" autoComplete="email"
-                           defaultValue={this.state.data.image} onChange={(event) => this.handleChangeData(event)}/>
-                    {/*<FormText className="help-block">Please enter a complex password</FormText>*/}
                   </Col>
                 </FormGroup>
                 <div className="form-actions">
                   <Button className="mr-1 btn-danger" type="submit"
                           onClick={() => this.props.history.goBack()}>Hủy</Button>
+                  <Button onClick={() => this.toggleLarge()} className="mr-1" type="submit" color="info">Xem
+                    trước</Button>
+                  {/*<Button className="mr-1" type="submit" color="info">Xem trước</Button>*/}
                   <Button className="mr-1 btn-primary" color="primary" type="submit" value="SEND POST"
                           onClick={() => this.updateAccountInfo(this.state.data.id)}>Cập nhật</Button>
                 </div>
@@ -220,10 +177,11 @@ class AccountDetail extends Component {
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6">
-              <p className="font-weight-bold">CHI TIẾT SẢN PHẨM </p>
+              <p className="font-weight-bold">CHI TIẾT QUẢNG CÁO </p>
             </Col>
           </Row>
           {this.tabPane()}
+          {this.state.alert}
           <div className="form-actions">
             {/*<Button type="submit" color="primary" className="mr-1">Hủy</Button>*/}
             {/*<Button type="submit" color="info" className="mr-1">Hoàn thành</Button>*/}

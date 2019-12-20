@@ -4,7 +4,7 @@ import {
   Button, Card,
   CardBody,
   // CardHeader,
-  Col,
+  Col, Input,
   // Input,
   Nav,
   NavItem,
@@ -253,8 +253,8 @@ class Banners extends Component {
           <td>{data.status}</td>
           <td>{data.link}</td>
           <td>
-            {/*<Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i*/}
-            {/*  className="fa fa-eye "/></Button>*/}
+            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/banner/detail/' + data.id)}><i
+              className="fa fa-eye "/></Button>
             {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
             <Button className="mr-1 btn-danger" onClick={() => this.renderAlert(data.id, index)}><i
               className="cui-trash icons font-lg "/></Button>
@@ -278,8 +278,8 @@ class Banners extends Component {
           <td>{data.expiry_date}</td>
           <td>{data.status}</td>
           <td>
-            {/*<Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/' + data.order_id)}><i*/}
-            {/*  className="fa fa-eye "/></Button>*/}
+            <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/coupon/detail/' + data.id)}><i
+              className="fa fa-eye "/></Button>
             {/*<Button className="mr-1 btn-success"><i className="cui-pencil icons font-lg "></i></Button>*/}
             <Button className="mr-1 btn-danger" onClick={() => this.renderCouponAlert(data.id, index)}><i
               className="cui-trash icons font-lg "/></Button>
@@ -302,7 +302,21 @@ class Banners extends Component {
             <Col xs="12" md="6">
               <p className="font-weight-bold">QUẢN LÝ QUẢNG CÁO - kHUYẾN MẠI</p>
               <div className="animated fadeIn">
-                <a href={config.nhom5_url} > Go to Team 5 website !</a>
+                <Row>
+                  <Col xs="12" md="12">
+                  <a href={config.nhom5_url}> Go to Team 5 website !</a>
+                    <p>Gửi yêu cầu điều chỉnh quảng cáo , khuyến mại : </p></Col>
+                  <Col xs="6" md="6">
+                    <Input type="username" id="username" name="username" autoComplete="username"
+                           onChange={(event) => this.handleChangeData(event)}/>
+                  </Col>
+                  <Col xs="12" md="6">
+
+
+                    <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/coupon/add/')} style={{marginBottom:30}}>Gửi</Button>
+                  </Col>
+
+                </Row>
               </div>
             </Col>
           </Row>
@@ -313,7 +327,10 @@ class Banners extends Component {
                   <NavLink>
                     <TabPane tabId="2">
                       <Row>
-                        <Col xs="12" md="6"> <Card>
+                        <Col xs="12" md="6">
+                          <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/banner/add/')} style={{marginBottom:30}}><i
+                            className="fa fa-eye "/>Tạo quảng cáo mới</Button>
+                          <Card>
                           <CardBody>
                             <p>Banners</p>
                             <Table responsive>
@@ -345,7 +362,10 @@ class Banners extends Component {
                             </Table>
                           </CardBody>
                         </Card></Col>
-                        <Col xs="12" md="6"> <Card>
+                        <Col xs="12" md="6">
+                          <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/coupon/add/')} style={{marginBottom:30}}><i
+                            className="fa fa-eye "/>Tạo khuyến mại mới</Button>
+                          <Card>
                           <CardBody>
                             <p>Coupons</p>
                             <Table responsive>

@@ -18,7 +18,7 @@ import {
   // TabContent,
   // Table,
   // TabPane,
-  FormGroup, Label, Table
+  FormGroup, Label, Table, TabPane
 } from 'reactstrap';
 // import CardFooter from "reactstrap/es/CardFooter";
 import Spinner from "reactstrap/es/Spinner";
@@ -51,12 +51,6 @@ class OrderDetail extends Component {
   }
 
   updateAccountInfo(userId) {
-    // let avatarPath = document.getElementById('avatarPath').value;
-    // let mobilePhone = document.getElementById('mobilePhone').value;
-    // let address = document.getElementById('address').value;
-    // let givenName = document.getElementById('givenName').value;
-    // let name = document.getElementById('name').value;
-    // let avatarPath = this.state.data.avatarPath;
     let mobilePhone = this.state.data.mobilePhone;
     let address = this.state.data.address;
     let givenName = this.state.data.givenName;
@@ -124,216 +118,222 @@ class OrderDetail extends Component {
     document.getElementById("avatar-path").click();
   }
 
-  // uploadImage() {
-  //   let token = localStorage.getItem('token');
-  //   // let avatarPath = document.getElementById('avatar-path').value;
-  //   let preview = document.querySelector('#logo');
-  //   let file = document.querySelector('#avatar-path').files[0]; //sames as here
-  //   if (file) {
-  //     let formData = new FormData();
-  //     formData.append("file[new_image_path][]", file);
-  //     fetch('http://159.65.136.144:4001/api/v1/files', {
-  //       method: 'POST',
-  //       body: formData,
-  //       headers: {
-  //         "authorization": "Bearer " + token,
-  //       }
-  //     }).then(response => response.json()).then((responseJson) => {
-  //       let imagePath = responseJson.data.files[0].relativeUrl;
-  //       preview.src = imagePath;
-  //       this.setState({logo: imagePath});
-  //
-  //     }, function (error) {
-  //       console.log(error);
-  //     });
-  //   }
-  // }
-  handleBuildingsDataChange(event) {
-    let target = event.target;
-    let name = target.name;
-    let value = target.value;
-    let data = this.state.data;
-    data[name] = value;
-    console.log(value);
-    this.setState({data: data});
 
-  }
   isEditing() {
-    let data = this.state.data;
     if (!this.state.isEditing) {
       return (
         <Row>
           <Col sm="12" xl="12">
-            <Card>
-              <CardHeader>
-                <div>
-                  <Row style={{marginTop:10}}>
-                    {/*<Col sm="12" xl="3">*/}
-                    {/*  <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}} className="avatar avatar-online avatar-lg m-5">*/}
-                    {/*    <img src={data && data.avatar || "/assets/img/logo-placeholder.png"} style={{height: 120,borderRadius:50 }} />*/}
-                    {/*  </div>*/}
-                    {/*</Col>*/}
-                    <Row>
-                      <Col sm="6" xl="12">
-                        <div>
-                          <h3>{data.id}</h3>
-                        </div>
-                      </Col>
-                      <Col sm="12" xl="4">
-                        <div>
-                          <p>Name : {data.user.name} </p>
-                        </div>
-                      </Col>
-                      <Col sm="12" xl="4">
-                        <div>
-                          <p>Phone : {data.user.phone}</p>
-                        </div>
-                      </Col>
-                      <Col sm="12" xl="4">
-                        <div>
-                          <p>Address : {data.user.address}</p>
-                        </div>
-                      </Col>
-                    </Row>
-                  </Row>
-                </div>
-              </CardHeader>
-              <CardBody>
-                <div>
-                  <Row>
-                    <Col xs="12" md="8">
-                      <Table responsive>
-                        <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Quantity</th>
-                          <th>Name</th>
-                          <th>Price</th>
-                          <th>subTotal</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {data.products.map(item =>{return(
-                          <tr>
-                            <th>{item.id}</th>
-                            <th>{item.quantity}</th>
-                            <th>{item.name}</th>
-                            <th>{item.price}</th>
-                            <th>{item.subTotal}</th>
-                          </tr>
-                        ) })}
-                        </tbody>
-                      </Table>
-                    </Col>
-                    <Col xs="12" md="4">
-                      <strong>Delivery</strong>
-                      <p>Status : {data.delivery.status}</p>
-                      <p>Fee : {data.delivery.fee}</p>
-                      <p>Date : {data.delivery.date}</p>
-                      <strong>Payment</strong>
-                      <p>Type : {data.payment.type}</p>
-                      <p>Status : {data.payment.status}</p>
-                      <strong>Another Information</strong>
-                      <p>Order status : {data.status}</p>
-                      <p>Discount : {data.discount}</p>
-                      <p>Total value : {data.totalValue}</p>
-                      <p>Warranty : {data.warranty}</p>
-                      {/*<p>Địa chỉ: {data.address}</p>*/}
-                    </Col>
-                    {/*<Col xs="12" md="4">*/}
-                    {/*  <p>Số lần bị report: </p>*/}
-                    {/*</Col>*/}
-                  </Row>
-                </div>
-              </CardBody>
-              <CardFooter>
-                <div className="align-items-center">
-                  {/*<FormGroup check inline className="align-self-center">*/}
-                  {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"*/}
-                  {/*         value="option1"/>*/}
-                  {/*  <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>*/}
-                  {/*</FormGroup>*/}
-                  {/*<FormGroup check inline className="align-content-center">*/}
-                  {/*  <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"*/}
-                  {/*         value="option2"/>*/}
-                  {/*  <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>*/}
-                  {/*</FormGroup>*/}
-                </div>
-                {/*<Button className="btn btn-info mr-1"*/}
-                {/*        onClick={() => this.showEditingForm()}>Sửa</Button>*/}
-                {/*<Button className="btn btn-danger mr-1"*/}
-                {/*        onClick={() => this.deleteBuilding(building.id)}>Xóa</Button>*/}
-              </CardFooter>
-            </Card>
+
           </Col>
         </Row>
       )
     } else {
-      return (<Row>
-        <Col sm="12" xl="12">
+
+  }
+  }
+  tabPane() {
+    let data = this.state.data;
+
+    return (
+      <>
+        <TabPane tabId="1">
           <Card>
             <CardHeader>
               <div>
-                <Row>
-                  <Col sm="4" xl="4">
-                    <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}}>
-                      {/*<Input style={{display: 'none'}} type="file" id="avatar-path" name="avatar-path"*/}
-                      {/*       onChange={() => this.uploadImage()}/>*/}
-                      {/*<img onClick={() => AccountDetail.triggerUploadImage()} id="logo" height="120"*/}
-                      {/*     src={data && data.avatar || "/assets/img/logo-placeholder.png"} alt="Logo preview..."/>*/}
-                    </div>
-                  </Col>
-                  <Col sm="4" xl="4">
-                    <div>
-                      <h3>{data.name}</h3>
-                    </div>
-                  </Col>
-                  <Col sm="4" xl="4">
-                    <div>
-                      <p>Số điện thoại :<Input id="phone" defaultValue={data.phone}  onChange={(event) => this.handleBuildingsDataChange(event)}/></p>
-
-                      <p>Email : {data.email}</p>
-
-                    </div>
-                  </Col>
+                <Row style={{marginTop:10}}>
+                  {/*<Col sm="12" xl="3">*/}
+                  {/*  <div style={{height: 120, width: 120, background: 'whitesmoke', float: 'left'}} className="avatar avatar-online avatar-lg m-5">*/}
+                  {/*    <img src={data && data.avatar || "/assets/img/logo-placeholder.png"} style={{height: 120,borderRadius:50 }} />*/}
+                  {/*  </div>*/}
+                  {/*</Col>*/}
+                  <Row>
+                    <Col sm="6" xl="12">
+                      <div>
+                        <h3>{data.id}</h3>
+                      </div>
+                    </Col>
+                    <Col sm="12" xl="4">
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Name</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.user.name}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup>
+                    </Col>
+                    <Col sm="12" xl="4">
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Phone</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.user.phone}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup>
+                    </Col>
+                    <Col sm="12" xl="4">
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Address</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.user.address}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup>
+                    </Col>
+                  </Row>
                 </Row>
               </div>
             </CardHeader>
             <CardBody>
               <div>
                 <Row>
-                  <Col xs="12" md="4">
-                    <p>Username: </p>
+                  <Col xs="12" md="8">
+                    <Table responsive>
+                      <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Quantity</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>subTotal</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {data.products.map(item =>{return(
+                        <tr>
+                          <th>{item.id}</th>
+                          <th>{item.quantity}</th>
+                          <th>{item.name}</th>
+                          <th>{item.price}</th>
+                          <th>{item.subTotal}</th>
+                        </tr>
+                      ) })}
+                      </tbody>
+                    </Table>
                   </Col>
                   <Col xs="12" md="4">
+                    <strong>Delivery</strong>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Status</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.delivery.status}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup>
+                    </p>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Fee</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.delivery.fee}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup></p>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Date</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.delivery.date}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup></p>
+                    <strong>Payment</strong>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Type</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.payment.type}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup></p>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Status</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.payment.status}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup></p>
+                    <strong>Another Information</strong>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Order status</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.status}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup></p>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Discount</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.discount}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup></p>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Total value</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.totalValue}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup></p>
+                    <p>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Warranty</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input type="text" id="name" name="name" defaultValue={data.warranty}
+                                 onChange={(event) => this.handleChangeData(event)}/>
+                        </Col>
+                      </FormGroup></p>
+                    {/*<p>Địa chỉ: {data.address}</p>*/}
                   </Col>
-                  <Col xs="12" md="4">
-                  </Col>
+                  {/*<Col xs="12" md="4">*/}
+                  {/*  <p>Số lần bị report: </p>*/}
+                  {/*</Col>*/}
                 </Row>
               </div>
             </CardBody>
             <CardFooter>
-              <FormGroup check inline className="align-self-center">
-                <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1"
-                       value="option1"/>
-                <Label className="form-check-label" check htmlFor="inline-checkbox1">Xóa</Label>
-              </FormGroup>
-              <FormGroup check inline className="align-content-center">
-                <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2"
-                       value="option2"/>
-                <Label className="form-check-label" check htmlFor="inline-checkbox2">Khóa</Label>
-              </FormGroup>
-              <Button className="btn btn-info mr-1"
-                      onClick={() => this.updateAccountInfo(data.id)}>Lưu</Button>
-              <Button className="btn btn-default mr-1"
-                      onClick={() => this.closeEditingForm()}>Hủy</Button>
+              <div className="form-actions">
+                <Button className="mr-1 btn-danger" type="submit"
+                        onClick={() => this.props.history.goBack()}>Hủy</Button>
+                <Button className="mr-1 btn-primary" color="primary" type="submit" value="SEND POST"
+                        onClick={() => this.updateAccountInfo(this.state.data.id)}>Cập nhật</Button>
+              </div>
             </CardFooter>
           </Card>
-        </Col>
-      </Row>)
-    }
+        </TabPane>
+      </>
+    )
+      ;
   }
-
   render() {
 
     if (!this.state.isLoaded) {
@@ -344,14 +344,11 @@ class OrderDetail extends Component {
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="6">
-              <p className="font-weight-bold">CHI TIẾT TÀI KHOẢN </p>
+              <p className="font-weight-bold">CHI TIẾT ĐƠN HÀNG </p>
             </Col>
           </Row>
-          {this.isEditing()}
+          {this.tabPane()}
           <div className="form-actions">
-            {/*<Button type="submit" color="primary" className="mr-1">Hủy</Button>*/}
-            {/*<Button type="submit" color="info" className="mr-1">Hoàn thành</Button>*/}
-
           </div>
 
         </div>

@@ -167,7 +167,7 @@ class CreateProduct extends Component {
 
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="text-input">Name</Label>
+                    <Label htmlFor="text-input">Delivery Unit</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="text" id="name" name="name" required onChange={(event) => this.handleChangeData(event)}
@@ -176,7 +176,7 @@ class CreateProduct extends Component {
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="email-input">Price</Label>
+                    <Label htmlFor="email-input">Shipper</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="username" id="username" required name="username"
@@ -186,7 +186,7 @@ class CreateProduct extends Component {
 
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="password">Description</Label>
+                    <Label htmlFor="password">Receiving Address</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="password" id="password" required name="password"
@@ -196,7 +196,7 @@ class CreateProduct extends Component {
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="phone">Category</Label>
+                    <Label htmlFor="phone">Receiver Phone</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="phone" id="phone" name="phone" required autoComplete="phone"
@@ -206,7 +206,7 @@ class CreateProduct extends Component {
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="email">Brand</Label>
+                    <Label htmlFor="email">Cost</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="email" id="email" name="email" required autoComplete="email"
@@ -217,20 +217,26 @@ class CreateProduct extends Component {
 
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="select">Sold out</Label>
+                    <Label htmlFor="select">Receive Date</Label>
                   </Col>
                   <Col xs="12" md="9">
-                    <Input type="select" name="type" id="type" required autoComplete="type" onChange={(event) => this.handleChangeData(event)}>
-                      <option value="4">Please select</option>
-                      <option value="0">True</option>
-                      <option value="1">False</option>
+                    <Input type="text" name="type" id="type" required autoComplete="type" onChange={(event) => this.handleChangeData(event)}>
 
                     </Input>
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Col md="3">
-                    <Label htmlFor="type">Image</Label>
+                    <Label htmlFor="type">Status</Label>
+                  </Col>
+                  <Col xs="12" md="9">
+                    <Input type="type" id="type" name="type" required
+                           onChange={(event) => this.handleChangeData(event)}/>
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Col md="3">
+                    <Label htmlFor="type">Status</Label>
                   </Col>
                   <Col xs="12" md="9">
                     <Input type="type" id="type" name="type" required
@@ -259,7 +265,7 @@ class CreateProduct extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" md="6">
-            <p className="font-weight-bold">ADD NEW PRODUCT</p>
+            <p className="font-weight-bold">ADD NEW DELIVERY</p>
           </Col>
         </Row>
         <Row>

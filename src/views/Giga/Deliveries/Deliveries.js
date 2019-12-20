@@ -398,6 +398,8 @@ renderUnitAlert(Id, index) {
               <p className="font-weight-bold">QUẢN LÝ GIAO HÀNG</p>
               <div className="animated fadeIn">
                 <a href={config.nhom10_url}> Go to Team 10 website !</a>
+                <Button className="mr-1 btn-info" onClick={() => this.props.history.push('/delivery/add')}><i
+                  className="fa fa-eye "/>Tạo mới</Button>
               </div>
             </Col>
           </Row>
